@@ -118,13 +118,14 @@ export default function UniversalSearch({ open, onClose }: UniversalSearchProps)
             className="fixed inset-0 z-[100] bg-background/70 backdrop-blur-md"
             onClick={onClose}
           />
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.97 }}
-            transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="fixed top-[10%] sm:top-[15%] left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-lg z-[101] glass-card rounded-2xl border border-border/50 overflow-hidden shadow-2xl"
-          >
+          <div className="fixed inset-0 z-[101] flex justify-center items-start pt-[10%] sm:pt-[15%] px-3 pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.97 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="w-full max-w-lg glass-card rounded-2xl border border-border/50 overflow-hidden shadow-2xl pointer-events-auto"
+            >
             {/* Search input */}
             <div className="flex items-center gap-3 px-4 py-3 border-b border-border/30">
               <Search className="w-5 h-5 text-muted-foreground shrink-0" />
@@ -194,7 +195,8 @@ export default function UniversalSearch({ open, onClose }: UniversalSearchProps)
                 );
               })}
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
