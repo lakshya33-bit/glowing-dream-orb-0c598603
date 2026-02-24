@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, Bell, Menu, X, ChevronDown, User, Sun, Moon, Wallet } from "lucide-react";
+import { Heart, Bell, ChevronDown, User, Sun, Moon, Wallet } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
 import logo from "@/assets/cardperks-logo.png";
@@ -22,7 +22,7 @@ const moreLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  
   const [moreOpen, setMoreOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
@@ -144,73 +144,18 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 text-foreground" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen}>
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile: show theme toggle + sign in only, nav handled by bottom bar */}
+          <div className="lg:hidden flex items-center gap-2">
+            <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg">
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+            <Link to="/login" className="px-4 py-1.5 text-xs font-medium gold-outline-btn rounded-lg">
+              Sign In
+            </Link>
+          </div>
         </div>
       </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 right-0 w-[280px] z-50 bg-background/95 backdrop-blur-xl border-l border-border p-5 pt-20 lg:hidden overflow-y-auto"
-            role="dialog"
-            aria-label="Mobile navigation"
-          >
-            <div className="flex flex-col gap-2">
-              <p className="text-[10px] font-medium tracking-widest uppercase text-muted-foreground/60 px-4 mb-1">Navigate</p>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                    isActive(link.href) ? "bg-gold/10 text-gold border-l-2 border-gold" : "text-muted-foreground hover:text-gold hover:bg-secondary/30"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="h-px bg-border/30 my-2" />
-              <p className="text-[10px] font-medium tracking-widest uppercase text-muted-foreground/60 px-4 mb-1">More</p>
-              {moreLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                    isActive(link.href) ? "bg-gold/10 text-gold border-l-2 border-gold" : "text-muted-foreground hover:text-gold hover:bg-secondary/30"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="mt-4 flex gap-3">
-                <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} className="p-2 text-muted-foreground hover:text-gold transition-colors">
-                  {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                </button>
-                <Link to="/favorites" onClick={() => setMobileOpen(false)} aria-label="Favorites" className="p-2 text-muted-foreground hover:text-gold transition-colors"><Heart className="w-5 h-5" /></Link>
-                <Link to="/my-cards" onClick={() => setMobileOpen(false)} aria-label="My Cards" className="p-2 text-muted-foreground hover:text-gold transition-colors"><Wallet className="w-5 h-5" /></Link>
-                <Link to="/dashboard" onClick={() => setMobileOpen(false)} aria-label="Dashboard" className="p-2 text-muted-foreground hover:text-gold transition-colors"><Bell className="w-5 h-5" /></Link>
-              </div>
-              <Link
-                to="/login"
-                onClick={() => setMobileOpen(false)}
-                className="mt-4 text-center px-5 py-3 text-sm font-medium gold-btn rounded-lg"
-              >
-                Sign In
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm lg:hidden" onClick={() => setMobileOpen(false)} aria-hidden="true" />
-      )}
     </>
   );
 }
