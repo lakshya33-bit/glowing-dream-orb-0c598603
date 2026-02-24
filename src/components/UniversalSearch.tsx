@@ -123,7 +123,7 @@ export default function UniversalSearch({ open, onClose }: UniversalSearchProps)
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.97 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
-            className="fixed top-[10%] sm:top-[15%] left-3 right-3 sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-lg z-[101] glass-card rounded-2xl border border-border/50 overflow-hidden shadow-2xl"
+            className="fixed top-[10%] sm:top-[15%] left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-lg z-[101] glass-card rounded-2xl border border-border/50 overflow-hidden shadow-2xl"
           >
             {/* Search input */}
             <div className="flex items-center gap-3 px-4 py-3 border-b border-border/30">
