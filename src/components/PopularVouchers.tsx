@@ -35,7 +35,7 @@ export default function PopularVouchers() {
           </Link>
         </motion.div>
 
-        <div className="flex gap-5 overflow-x-auto pb-4 -mx-4 px-4 snap-x" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-5 sm:overflow-x-auto sm:pb-4 sm:-mx-4 sm:px-4 sm:snap-x" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {vouchers.map((v, i) => (
             <motion.div
               key={v.name}
@@ -43,11 +43,11 @@ export default function PopularVouchers() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="min-w-[240px] sm:min-w-[280px] snap-start flex-shrink-0"
+              className="sm:min-w-[280px] sm:snap-start sm:flex-shrink-0"
             >
               <Link
                 to={`/vouchers/${v.id}`}
-                className="block tilt-card glass-card rounded-2xl p-6 group cursor-pointer relative overflow-hidden"
+                className="block tilt-card glass-card rounded-2xl p-4 sm:p-6 group cursor-pointer relative overflow-hidden"
                 style={{ borderTop: `3px solid ${v.color}` }}
               >
                 {v.best && (
