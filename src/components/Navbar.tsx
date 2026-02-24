@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Heart, Bell, Menu, X, ChevronDown, User, Sun, Moon, Wallet } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,6 +40,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Keyboard handler for More dropdown
+  const handleMoreKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setMoreOpen(false);
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setMoreOpen((prev) => !prev);
+    }
+  }, []);
+
   return (
     <>
       <nav
@@ -48,9 +58,11 @@ export default function Navbar() {
             ? "bg-background/90 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-background/50"
             : "bg-transparent"
         }`}
+        role="navigation"
+        aria-label="Main navigation"
       >
         <div className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group" aria-label="CardPerks Home">
             <img src={logo} alt="CardPerks" className="h-9 w-auto rounded-lg" />
           </Link>
 
@@ -62,6 +74,7 @@ export default function Navbar() {
                 className={`px-4 py-2 text-sm font-medium transition-colors relative group ${
                   isActive(link.href) ? "text-gold" : "text-muted-foreground hover:text-gold"
                 }`}
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
                 <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gold transition-all duration-300 ${
@@ -72,6 +85,10 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setMoreOpen(!moreOpen)}
+                onKeyDown={handleMoreKeyDown}
+                aria-expanded={moreOpen}
+                aria-haspopup="true"
+                aria-label="More navigation links"
                 className={`px-4 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${
                   isMoreActive ? "text-gold" : "text-muted-foreground hover:text-gold"
                 }`}
@@ -85,12 +102,14 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     className="absolute top-full right-0 mt-1 w-44 glass-card rounded-lg overflow-hidden py-1"
+                    role="menu"
                     onMouseLeave={() => setMoreOpen(false)}
                   >
                     {moreLinks.map((link) => (
                       <Link
                         key={link.href}
                         to={link.href}
+                        role="menuitem"
                         className={`block px-4 py-2.5 text-sm transition-colors ${
                           isActive(link.href) ? "text-gold bg-gold/10" : "text-muted-foreground hover:text-gold hover:bg-secondary/50"
                         }`}
@@ -105,19 +124,19 @@ export default function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-2">
-            <button onClick={toggleTheme} className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
+            <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-            <Link to="/favorites" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
+            <Link to="/favorites" aria-label="Favorites" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               <Heart className="w-4 h-4" />
             </Link>
-            <Link to="/my-cards" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
+            <Link to="/my-cards" aria-label="My Cards Wallet" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               <Wallet className="w-4 h-4" />
             </Link>
-            <Link to="/dashboard" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
+            <Link to="/dashboard" aria-label="Notifications" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               <Bell className="w-4 h-4" />
             </Link>
-            <Link to="/dashboard" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
+            <Link to="/dashboard" aria-label="User profile" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               <User className="w-4 h-4" />
             </Link>
             <Link to="/login" className="ml-2 px-5 py-2 text-sm font-medium gold-outline-btn rounded-lg">
@@ -125,7 +144,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 text-foreground">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 text-foreground" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen}>
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -139,6 +158,8 @@ export default function Navbar() {
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-y-0 right-0 w-72 z-50 bg-background/95 backdrop-blur-xl border-l border-border p-6 pt-20 lg:hidden"
+            role="dialog"
+            aria-label="Mobile navigation"
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
@@ -166,12 +187,12 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="mt-4 flex gap-3">
-                <button onClick={toggleTheme} className="p-2 text-muted-foreground hover:text-gold transition-colors">
+                <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} className="p-2 text-muted-foreground hover:text-gold transition-colors">
                   {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </button>
-                <Link to="/favorites" onClick={() => setMobileOpen(false)} className="p-2 text-muted-foreground hover:text-gold transition-colors"><Heart className="w-5 h-5" /></Link>
-                <Link to="/my-cards" onClick={() => setMobileOpen(false)} className="p-2 text-muted-foreground hover:text-gold transition-colors"><Wallet className="w-5 h-5" /></Link>
-                <Link to="/dashboard" onClick={() => setMobileOpen(false)} className="p-2 text-muted-foreground hover:text-gold transition-colors"><Bell className="w-5 h-5" /></Link>
+                <Link to="/favorites" onClick={() => setMobileOpen(false)} aria-label="Favorites" className="p-2 text-muted-foreground hover:text-gold transition-colors"><Heart className="w-5 h-5" /></Link>
+                <Link to="/my-cards" onClick={() => setMobileOpen(false)} aria-label="My Cards" className="p-2 text-muted-foreground hover:text-gold transition-colors"><Wallet className="w-5 h-5" /></Link>
+                <Link to="/dashboard" onClick={() => setMobileOpen(false)} aria-label="Dashboard" className="p-2 text-muted-foreground hover:text-gold transition-colors"><Bell className="w-5 h-5" /></Link>
               </div>
               <Link
                 to="/login"
@@ -185,7 +206,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm lg:hidden" onClick={() => setMobileOpen(false)} />
+        <div className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm lg:hidden" onClick={() => setMobileOpen(false)} aria-hidden="true" />
       )}
     </>
   );

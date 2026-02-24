@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, CreditCard, Heart, TrendingUp, Star, Settings, LogOut, Bell, Gift, BookOpen, ChevronRight, IndianRupee } from "lucide-react";
+import SEO from "@/components/SEO";
 import { Link, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/components/PageLayout";
@@ -87,6 +88,7 @@ export default function Dashboard() {
 
   return (
     <PageLayout>
+      <SEO title="Dashboard" description="Your personal CardPerks dashboard. Track rewards, manage cards, and view activity." path="/dashboard" />
       {/* Gradient hero header */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gold/8 via-transparent to-gold/3" />

@@ -1,8 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown, Users } from "lucide-react";
-import Scene3D from "./Scene3D";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const Scene3D = lazy(() => import("./Scene3D"));
 
 function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -45,9 +47,15 @@ const stats = [
 ];
 
 export default function HeroSection() {
+  const isMobile = useIsMobile();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <Scene3D />
+      {!isMobile && (
+        <Suspense fallback={null}>
+          <Scene3D />
+        </Suspense>
+      )}
 
       <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background z-[1]" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[1]" />

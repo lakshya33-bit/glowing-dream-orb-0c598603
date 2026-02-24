@@ -9,6 +9,7 @@ import { vouchers, iconMap } from "@/data/vouchers";
 import { guides } from "@/data/guides";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SEO from "@/components/SEO";
 
 export default function Favorites() {
   const cardFavs = useFavorites("card");
@@ -22,6 +23,7 @@ export default function Favorites() {
 
   return (
     <PageLayout>
+      <SEO title="Favorites" description="Your saved credit cards, vouchers, and guides — all in one place." path="/favorites" />
       <section className="container mx-auto px-4 py-12">
         <ScrollReveal>
           <div className="text-center mb-12">

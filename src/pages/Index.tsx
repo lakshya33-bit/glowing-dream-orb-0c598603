@@ -7,6 +7,7 @@ import FloatingParticles from "@/components/FloatingParticles";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import BackToTop from "@/components/BackToTop";
+import SEO from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { cards } from "@/data/cards";
 import { ArrowRight } from "lucide-react";
@@ -14,6 +15,7 @@ import { ArrowRight } from "lucide-react";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
+      <SEO path="/" />
       <FloatingParticles />
       <Navbar />
       <HeroSection />

@@ -22,6 +22,7 @@ import {
   BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Area, AreaChart,
   Legend
 } from "recharts";
+import SEO from "@/components/SEO";
 
 const monthlyTrend = [
   { month: "Sep", spend: 32500, rewards: 980 },
@@ -100,6 +101,7 @@ export default function MyCards() {
 
   return (
     <PageLayout>
+      <SEO title="My Wallet" description="Track your credit cards, monitor spending, and maximize rewards in your personal wallet." path="/my-cards" />
       <section className="py-16 relative">
         {/* Gold radial gradient accent */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,hsl(var(--gold)/0.08),transparent_70%)] pointer-events-none" />

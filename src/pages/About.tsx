@@ -2,6 +2,7 @@ import { Heart, Target, Users, Zap } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
+import SEO from "@/components/SEO";
 
 const values = [
   { icon: Target, title: "Transparency", desc: "We present unbiased, data-driven card comparisons with no hidden sponsorships." },
@@ -13,6 +14,7 @@ const values = [
 export default function About() {
   return (
     <PageLayout>
+      <SEO title="About Us" description="CardPerks is India's most comprehensive credit card rewards platform. Discover, compare, and maximize your credit card perks." path="/about" />
       <section className="container mx-auto px-4 py-12">
         <ScrollReveal>
           <div className="text-center mb-16">

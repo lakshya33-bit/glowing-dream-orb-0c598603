@@ -9,6 +9,7 @@ import PageLayout from "@/components/PageLayout";
 import BackToTop from "@/components/BackToTop";
 import { vouchers, voucherCategories, iconMap, type Voucher } from "@/data/vouchers";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import SEO from "@/components/SEO";
 
 const BEST_RATE_THRESHOLD = 10;
 
@@ -209,10 +210,7 @@ export default function Vouchers() {
   const [sortBy, setSortBy] = useState<SortOption>("rate");
   const { toggle: toggleFav, isFav } = useFavorites("voucher");
 
-  useEffect(() => {
-    document.title = "Vouchers | CardPerks";
-    return () => { document.title = "CardPerks"; };
-  }, []);
+  useEffect(() => { document.title = "Vouchers | CardPerks"; return () => { document.title = "CardPerks"; }; }, []);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { All: vouchers.length };
@@ -242,6 +240,7 @@ export default function Vouchers() {
 
   return (
     <PageLayout>
+      <SEO title="Vouchers" description="Compare credit card voucher rates across 12+ brands. Find the best redemption deals for your reward points." path="/vouchers" />
       <section className="py-12 relative">
         <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-gold/[0.03] to-transparent pointer-events-none" />
 
