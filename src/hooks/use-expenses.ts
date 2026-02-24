@@ -12,7 +12,7 @@ export interface Expense {
 
 const STORAGE_KEY = "cardperks_expenses";
 
-export const CATEGORIES = [
+const CATEGORIES = [
   { value: "shopping", label: "🛍️ Shopping" },
   { value: "food", label: "🍔 Food & Dining" },
   { value: "travel", label: "✈️ Travel" },
@@ -29,7 +29,13 @@ function loadExpenses(): Expense[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
-  } catch { return []; }
+  } catch {
+    return [];
+  }
+}
+
+function saveExpenses(expenses: Expense[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
 }
 
 export function useExpenses() {
@@ -39,7 +45,7 @@ export function useExpenses() {
     const newExpense: Expense = { ...expense, id: crypto.randomUUID() };
     setExpenses((prev) => {
       const next = [newExpense, ...prev];
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      saveExpenses(next);
       return next;
     });
   }, []);
@@ -47,13 +53,22 @@ export function useExpenses() {
   const deleteExpense = useCallback((id: string) => {
     setExpenses((prev) => {
       const next = prev.filter((e) => e.id !== id);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      saveExpenses(next);
       return next;
     });
   }, []);
 
-  const getByCard = useCallback((cardId: string) => expenses.filter((e) => e.cardId === cardId), [expenses]);
-  const totalByCard = useCallback((cardId: string) => expenses.filter((e) => e.cardId === cardId).reduce((s, e) => s + e.amount, 0), [expenses]);
+  const getByCard = useCallback(
+    (cardId: string) => expenses.filter((e) => e.cardId === cardId),
+    [expenses]
+  );
 
-  return { expenses, addExpense, deleteExpense, getByCard, totalByCard };
+  const totalByCard = useCallback(
+    (cardId: string) => expenses.filter((e) => e.cardId === cardId).reduce((s, e) => s + e.amount, 0),
+    [expenses]
+  );
+
+  return { expenses, addExpense, deleteExpense, getByCard, totalByCard, CATEGORIES };
 }
+
+export { CATEGORIES };
