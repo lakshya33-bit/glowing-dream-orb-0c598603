@@ -157,30 +157,33 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 right-0 w-72 z-50 bg-background/95 backdrop-blur-xl border-l border-border p-6 pt-20 lg:hidden"
+            className="fixed inset-y-0 right-0 w-[280px] z-50 bg-background/95 backdrop-blur-xl border-l border-border p-5 pt-20 lg:hidden overflow-y-auto"
             role="dialog"
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col gap-2">
+              <p className="text-[10px] font-medium tracking-widest uppercase text-muted-foreground/60 px-4 mb-1">Navigate</p>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                    isActive(link.href) ? "bg-gold/10 text-gold" : "text-muted-foreground hover:text-gold hover:bg-secondary/30"
+                    isActive(link.href) ? "bg-gold/10 text-gold border-l-2 border-gold" : "text-muted-foreground hover:text-gold hover:bg-secondary/30"
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
+              <div className="h-px bg-border/30 my-2" />
+              <p className="text-[10px] font-medium tracking-widest uppercase text-muted-foreground/60 px-4 mb-1">More</p>
               {moreLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                    isActive(link.href) ? "bg-gold/10 text-gold" : "text-muted-foreground hover:text-gold hover:bg-secondary/30"
+                    isActive(link.href) ? "bg-gold/10 text-gold border-l-2 border-gold" : "text-muted-foreground hover:text-gold hover:bg-secondary/30"
                   }`}
                 >
                   {link.label}

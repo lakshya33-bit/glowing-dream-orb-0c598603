@@ -199,8 +199,8 @@ export default function KnowYourCards() {
 
             <TabsContent value="cards">
               {/* Filter & Sort Controls */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+              <div className="flex flex-col gap-4 mb-6">
+                <div className="scroll-fade-container flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
                   {["All", ...uniqueTypes].map((type) => (
                     <button
                       key={type}

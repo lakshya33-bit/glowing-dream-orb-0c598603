@@ -274,7 +274,7 @@ export default function Vouchers() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.5 }} className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.5 }} className="scroll-fade-container flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
             {voucherCategories.map((cat) => {
               const CatIcon = cat === "All" ? Gift : (iconMap[cat] || Gift);
               return (
@@ -297,7 +297,7 @@ export default function Vouchers() {
             })}
           </motion.div>
 
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
             <p className="text-xs text-muted-foreground">
               Showing <span className="text-foreground font-medium">{filtered.length}</span> voucher{filtered.length !== 1 ? "s" : ""}
               {activeCategory !== "All" && <> in <span className="text-gold">{activeCategory}</span></>}
@@ -309,7 +309,7 @@ export default function Vouchers() {
                 <button
                   key={opt}
                   onClick={() => setSortBy(opt)}
-                  className={`px-2.5 py-1 rounded-lg transition-colors capitalize ${sortBy === opt ? "bg-gold/15 text-gold font-medium" : "hover:text-foreground"}`}
+                  className={`px-2.5 py-1.5 rounded-lg transition-colors capitalize ${sortBy === opt ? "bg-gold/15 text-gold font-medium" : "hover:text-foreground"}`}
                 >
                   {opt === "rate" ? "Best Rate" : opt}
                 </button>
@@ -317,7 +317,7 @@ export default function Vouchers() {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
             {filtered.map((v, i) => {
               const Icon = iconMap[v.category] || Gift;
               const rate = parseRate(v.bestRate);
@@ -342,7 +342,7 @@ export default function Vouchers() {
                   }}
                 >
                   <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${v.color}, ${v.color}40)` }} />
-                  <div className="p-6 relative">
+                  <div className="p-4 sm:p-6 relative">
                     {isBestRate && (
                       <div className="absolute top-3 right-12 z-10">
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gold/15 text-gold text-[10px] font-semibold">

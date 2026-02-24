@@ -60,12 +60,12 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background z-[1]" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[1]" />
 
-      <div className="relative z-10 container mx-auto px-4 text-center pt-20">
+      <div className="relative z-10 container mx-auto px-4 text-center pt-16 sm:pt-20">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-sm font-medium tracking-widest uppercase text-gold mb-5"
+          className="text-xs sm:text-sm font-medium tracking-widest uppercase text-gold mb-3 sm:mb-5"
         >
           India's Premier Credit Card Perks Platform
         </motion.p>
@@ -74,7 +74,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-5"
+          className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-5"
         >
           Track Voucher Rates.
           <br />
@@ -85,7 +85,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="max-w-xl mx-auto text-muted-foreground text-base sm:text-lg mb-8"
+          className="max-w-xl mx-auto text-muted-foreground text-sm sm:text-base md:text-lg mb-6 sm:mb-8 px-2 sm:px-0"
         >
           Compare credit card voucher rates across brands and platforms.
           Never miss the best deal on your rewards again.
@@ -95,7 +95,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10"
         >
           <Link
             to="/vouchers"
@@ -119,12 +119,12 @@ export default function HeroSection() {
           className="relative inline-block mb-8"
         >
           <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-transparent via-gold/30 to-transparent animate-[shimmer_3s_linear_infinite] bg-[length:200%_100%]" />
-          <div className="relative inline-flex items-center gap-6 sm:gap-10 glass-card rounded-2xl px-8 py-4">
+          <div className="relative inline-flex items-center gap-4 sm:gap-10 glass-card rounded-2xl px-4 sm:px-8 py-3 sm:py-4">
             {stats.map((stat, i) => (
               <div key={stat.label} className="flex items-center gap-3">
                 {i > 0 && <div className="w-px h-8 bg-border" />}
                 <div className="text-center">
-                  <div className="font-serif text-2xl sm:text-3xl font-bold text-gold">
+                  <div className="font-serif text-xl sm:text-3xl font-bold text-gold">
                     <CountUp target={stat.value} />
                     {stat.label === "Brands" ? "+" : ""}
                   </div>

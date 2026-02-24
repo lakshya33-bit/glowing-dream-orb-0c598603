@@ -207,9 +207,49 @@
     transition: transform 0.3s ease;
   }
 
-  .tilt-card:hover {
-    transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
-    box-shadow: 0 20px 40px hsl(var(--gold) / 0.1);
+  @media (hover: hover) and (pointer: fine) {
+    .tilt-card:hover {
+      transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
+      box-shadow: 0 20px 40px hsl(var(--gold) / 0.1);
+    }
+  }
+
+  /* Mobile-first scroll fade container */
+  .scroll-fade-container {
+    position: relative;
+  }
+  .scroll-fade-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, hsl(var(--background)));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .scroll-fade-container.scrolled-end::after {
+    opacity: 0;
+  }
+
+  /* Scrollbar hide utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mobile-optimized touch targets */
+  @media (max-width: 640px) {
+    .mobile-compact-card {
+      padding: 1rem;
+    }
+    .mobile-compact-card .text-sm {
+      font-size: 0.8125rem;
+    }
   }
 }
 
