@@ -7,7 +7,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
     <div className="min-h-screen bg-background">
       <Navbar />
       <PageTransition>
-        <main className="pt-20">{children}</main>
+        <main className="pt-20 pb-16 lg:pb-0">{children}</main>
       </PageTransition>
       <Footer />
     </div>

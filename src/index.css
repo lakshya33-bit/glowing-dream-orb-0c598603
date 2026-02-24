@@ -188,6 +188,34 @@
     transform: scale(0.95);
   }
 
+  /* Touch feedback for interactive elements on mobile */
+  @media (pointer: coarse) {
+    .glass-card {
+      transition: transform 0.15s ease;
+    }
+    .glass-card:active {
+      transform: scale(0.97);
+    }
+  }
+
+  .gold-outline-btn {
+    border: 1.5px solid hsl(var(--gold) / 0.6);
+    color: hsl(var(--gold));
+    background: transparent;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .gold-outline-btn:hover {
+    border-color: hsl(var(--gold));
+    background: hsl(var(--gold) / 0.08);
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.15);
+  }
+
+  .gold-outline-btn:active {
+    transform: scale(0.95);
+  }
+
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
