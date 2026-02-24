@@ -8,6 +8,7 @@ import { useFavorites } from "@/hooks/use-favorites";
 import { guides, guideCategories } from "@/data/guides";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import SEO from "@/components/SEO";
 
 export default function GuidesHub() {
   const [search, setSearch] = useState("");
@@ -27,6 +28,7 @@ export default function GuidesHub() {
 
   return (
     <PageLayout>
+      <SEO title="Guides Hub" description="Expert guides to maximize your credit card rewards. Learn about lounge access, reward stacking, fee waivers, and more." path="/guides" />
       <section className="container mx-auto px-4 py-12">
         <ScrollReveal>
           <div className="text-center mb-12">

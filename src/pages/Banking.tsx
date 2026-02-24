@@ -10,6 +10,7 @@ import FavoriteButton from "@/components/FavoriteButton";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
+import SEO from "@/components/SEO";
 
 const tierIcons = [CircleDot, Diamond, Crown, Award];
 
@@ -344,6 +345,7 @@ export default function Banking() {
 
   return (
     <PageLayout>
+      <SEO title="Banking" description="Compare wealth banking tiers across HDFC, ICICI, Axis, Kotak, and SBI. Find the best banking program for your needs." path="/banking" />
       <section className="py-16 min-h-screen">
         <div className="absolute top-0 left-0 right-0 h-[500px] pointer-events-none" style={{ background: "radial-gradient(ellipse at center top, hsl(var(--gold) / 0.06), transparent 70%)" }} />
 

@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
 import BackToTop from "@/components/BackToTop";
 import { toast } from "sonner";
+import SEO from "@/components/SEO";
 
 interface Message {
   role: "user" | "ai";
@@ -170,6 +171,7 @@ export default function PerkAI() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Perk AI" description="Get AI-powered credit card recommendations. Ask about rewards, lounge access, and the best card for your spending." path="/perk-ai" />
       <Navbar />
       <PageTransition>
         <main className="pt-20">
