@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import NavigationProgress from "@/components/NavigationProgress";
+import MobileBottomNav from "@/components/MobileBottomNav";
 
 // Lazy-loaded pages
 const Index = lazy(() => import("./pages/Index"));
@@ -72,6 +73,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
+            <MobileBottomNav />
           </BrowserRouter>
         </TooltipProvider>
       </ThemeProvider>

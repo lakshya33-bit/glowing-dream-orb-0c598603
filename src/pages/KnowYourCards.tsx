@@ -6,6 +6,8 @@ import { useMyCards } from "@/hooks/use-my-cards";
 import FavoriteButton from "@/components/FavoriteButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Link, useNavigate } from "react-router-dom";
 import PageLayout from "@/components/PageLayout";
@@ -60,63 +62,78 @@ const highestRatedCard = cards.reduce((best, c) => (c.rating > best.rating ? c :
 type SortOption = "rating" | "fee-low" | "fee-high";
 
 function CardQuickView({ card, open, onClose }: { card: CardType | null; open: boolean; onClose: () => void }) {
+  const isMobile = useIsMobile();
   if (!card) return null;
+
+  const innerContent = (
+    <div>
+      <div className="p-4 sm:p-6 pb-3 sm:pb-4" style={{ background: `linear-gradient(135deg, ${card.color}08, ${card.color}15, transparent)` }}>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-24 sm:w-32 aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 flex-shrink-0">
+            {card.image ? (
+              <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}88)` }} />
+            )}
+          </div>
+          <div>
+            <h3 className="font-serif text-lg sm:text-xl font-bold flex items-center gap-2">
+              {card.name}
+              <span className="flex items-center gap-1 text-sm font-normal">
+                <Star className="w-3.5 h-3.5 text-gold fill-gold" />
+                <span className="text-sm">{card.rating}</span>
+              </span>
+            </h3>
+            <p className="text-xs text-muted-foreground">{card.issuer} · {card.network} · {card.type}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-4 sm:p-6 pt-2 space-y-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          {[{ l: "Fee", v: card.fee }, { l: "Rewards", v: card.rewards }, { l: "Lounge", v: card.lounge }].map((s) => (
+            <div key={s.l} className="text-center bg-secondary/30 rounded-xl p-2 sm:p-3">
+              <p className="text-[10px] text-muted-foreground uppercase">{s.l}</p>
+              <p className="text-xs sm:text-sm font-semibold text-gold mt-1">{s.v}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-[10px] text-muted-foreground">Min. Income: <span className="text-foreground font-medium">{card.minIncome}</span></p>
+        <div>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Key Perks</p>
+          <div className="space-y-1.5">{card.perks.map((p) => <div key={p} className="flex items-center gap-2"><Check className="w-3 h-3 text-gold flex-shrink-0" /><span className="text-xs sm:text-sm">{p}</span></div>)}</div>
+        </div>
+        <div>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Top Voucher Rates</p>
+          <div className="flex flex-wrap gap-1.5">{card.vouchers.map((v) => <span key={v} className="text-xs px-2.5 py-1 rounded-full bg-secondary/60">{v}</span>)}</div>
+        </div>
+        <div className="flex flex-wrap gap-1.5">{card.bestFor.map((b) => <span key={b} className="text-xs px-2.5 py-1 rounded-full bg-gold/10 text-gold">{b}</span>)}</div>
+        <Link to={`/cards/${card.id}`} onClick={onClose} className="gold-btn w-full py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+          View Full Details <ExternalLink className="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  );
+
+  if (isMobile) {
+    return (
+      <Drawer open={open} onOpenChange={(o) => !o && onClose()}>
+        <DrawerContent className="max-h-[85vh]">
+          <DrawerHeader className="sr-only">
+            <DrawerTitle>{card.name}</DrawerTitle>
+          </DrawerHeader>
+          <div className="overflow-y-auto">{innerContent}</div>
+        </DrawerContent>
+      </Drawer>
+    );
+  }
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="glass-card border-border/50 sm:max-w-lg p-0 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.2 }}
-        >
-          {/* Brand-tinted header */}
-          <div className="p-6 pb-4" style={{ background: `linear-gradient(135deg, ${card.color}08, ${card.color}15, transparent)` }}>
-            <DialogHeader>
-              <div className="flex items-center gap-4">
-                <div className="w-32 aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 flex-shrink-0">
-                  {card.image ? (
-                    <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}88)` }} />
-                  )}
-                </div>
-                <div>
-                  <DialogTitle className="font-serif text-xl flex items-center gap-2">
-                    {card.name}
-                    <span className="flex items-center gap-1 text-sm font-normal">
-                      <Star className="w-3.5 h-3.5 text-gold fill-gold" />
-                      <span className="text-sm">{card.rating}</span>
-                    </span>
-                  </DialogTitle>
-                  <p className="text-xs text-muted-foreground">{card.issuer} · {card.network} · {card.type}</p>
-                </div>
-              </div>
-            </DialogHeader>
-          </div>
-
-          <div className="p-6 pt-2 space-y-4">
-            <div className="grid grid-cols-3 gap-3">
-              {[{ l: "Fee", v: card.fee }, { l: "Rewards", v: card.rewards }, { l: "Lounge", v: card.lounge }].map((s) => (
-                <div key={s.l} className="text-center bg-secondary/30 rounded-xl p-3">
-                  <p className="text-[10px] text-muted-foreground uppercase">{s.l}</p>
-                  <p className="text-sm font-semibold text-gold mt-1">{s.v}</p>
-                </div>
-              ))}
-            </div>
-            <p className="text-[10px] text-muted-foreground">Min. Income: <span className="text-foreground font-medium">{card.minIncome}</span></p>
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Key Perks</p>
-              <div className="space-y-1.5">{card.perks.map((p) => <div key={p} className="flex items-center gap-2"><Check className="w-3 h-3 text-gold" /><span className="text-sm">{p}</span></div>)}</div>
-            </div>
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">Top Voucher Rates</p>
-              <div className="flex flex-wrap gap-1.5">{card.vouchers.map((v) => <span key={v} className="text-xs px-2.5 py-1 rounded-full bg-secondary/60">{v}</span>)}</div>
-            </div>
-            <div className="flex flex-wrap gap-1.5">{card.bestFor.map((b) => <span key={b} className="text-xs px-2.5 py-1 rounded-full bg-gold/10 text-gold">{b}</span>)}</div>
-            <Link to={`/cards/${card.id}`} onClick={onClose} className="gold-btn w-full py-2.5 rounded-xl text-sm flex items-center justify-center gap-2">
-              View Full Details <ExternalLink className="w-4 h-4" />
-            </Link>
-          </div>
+        <DialogTitle className="sr-only">{card.name}</DialogTitle>
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
+          {innerContent}
         </motion.div>
       </DialogContent>
     </Dialog>
