@@ -52,5 +52,8 @@ export function useExpenses() {
     });
   }, []);
 
-  return { expenses, addExpense, deleteExpense };
+  const getByCard = useCallback((cardId: string) => expenses.filter((e) => e.cardId === cardId), [expenses]);
+  const totalByCard = useCallback((cardId: string) => expenses.filter((e) => e.cardId === cardId).reduce((s, e) => s + e.amount, 0), [expenses]);
+
+  return { expenses, addExpense, deleteExpense, getByCard, totalByCard };
 }
