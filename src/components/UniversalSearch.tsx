@@ -118,7 +118,7 @@ export default function UniversalSearch({ open, onClose }: UniversalSearchProps)
             className="fixed inset-0 z-[100] bg-background/70 backdrop-blur-md"
             onClick={onClose}
           />
-          <div className="fixed inset-0 z-[101] flex justify-center items-start pt-[10%] sm:pt-[15%] px-3 pointer-events-none">
+          <div className="fixed inset-0 z-[101] flex justify-center items-start pt-20 sm:pt-[15%] px-4 sm:px-6 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, y: -20, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
