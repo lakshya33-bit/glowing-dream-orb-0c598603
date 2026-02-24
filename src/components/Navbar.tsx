@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Heart, Bell, ChevronDown, User, Sun, Moon, Wallet } from "lucide-react";
+import { Heart, Search, ChevronDown, User, Sun, Moon, Wallet } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/components/ThemeProvider";
+import UniversalSearch from "@/components/UniversalSearch";
 import logo from "@/assets/cardperks-logo.png";
 
 const navLinks = [
@@ -22,7 +23,7 @@ const moreLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  
+  const [searchOpen, setSearchOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
@@ -38,6 +39,18 @@ export default function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Cmd/Ctrl+K to open search
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, []);
 
   // Keyboard handler for More dropdown
@@ -124,6 +137,9 @@ export default function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-2">
+            <button onClick={() => setSearchOpen(true)} aria-label="Search" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
+              <Search className="w-4 h-4" />
+            </button>
             <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
@@ -133,9 +149,6 @@ export default function Navbar() {
             <Link to="/my-cards" aria-label="My Cards Wallet" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               <Wallet className="w-4 h-4" />
             </Link>
-            <Link to="/dashboard" aria-label="Notifications" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
-              <Bell className="w-4 h-4" />
-            </Link>
             <Link to="/dashboard" aria-label="User profile" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg hover:bg-secondary/50">
               <User className="w-4 h-4" />
             </Link>
@@ -144,8 +157,11 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile: logo actions — theme, favorites, wallet, sign in */}
+          {/* Mobile: search, theme, favorites, wallet, sign in */}
           <div className="lg:hidden flex items-center gap-1">
+            <button onClick={() => setSearchOpen(true)} aria-label="Search" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg">
+              <Search className="w-4 h-4" />
+            </button>
             <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg">
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
@@ -162,6 +178,7 @@ export default function Navbar() {
         </div>
       </nav>
 
+      <UniversalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
