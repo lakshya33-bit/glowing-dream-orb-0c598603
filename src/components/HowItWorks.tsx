@@ -24,14 +24,14 @@ const features = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-16 relative">
+    <section className="py-10 sm:py-16 relative">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <p className="text-sm font-medium tracking-widest uppercase text-gold mb-3">How It Works</p>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold">
@@ -39,7 +39,7 @@ export default function HowItWorks() {
           </h2>
         </motion.div>
 
-        <div className="relative grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
           <div className="hidden md:block absolute top-1/2 left-[20%] right-[20%] -translate-y-1/2 z-0">
             <div className="border-t-2 border-dashed border-gold/20" />
           </div>
@@ -51,7 +51,7 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.15, duration: 0.5 }}
-              className="relative tilt-card glass-card rounded-2xl p-8 text-center group cursor-default border-t-2 border-transparent hover:border-gold/40 transition-all duration-300 z-10"
+              className="relative tilt-card glass-card rounded-2xl p-6 sm:p-8 text-center group cursor-default border-t-2 border-transparent hover:border-gold/40 transition-all duration-300 z-10"
             >
               <span className="absolute top-3 right-4 font-serif text-5xl font-bold text-gold/[0.07] select-none pointer-events-none">
                 {feature.step}

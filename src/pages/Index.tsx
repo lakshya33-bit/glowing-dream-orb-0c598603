@@ -35,7 +35,7 @@ const Index = () => {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
       <ScrollReveal delay={0.15}>
-        <section className="py-16">
+        <section className="py-10 sm:py-16">
           <div className="container mx-auto px-4">
             <div className="flex items-end justify-between mb-10">
               <div>

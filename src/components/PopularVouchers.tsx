@@ -12,14 +12,14 @@ const vouchers = [
 
 export default function PopularVouchers() {
   return (
-    <section className="py-16 relative">
+    <section className="py-10 sm:py-16 relative">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="flex items-end justify-between mb-12"
+          className="flex items-end justify-between mb-8 sm:mb-12"
         >
           <div>
             <p className="text-sm font-medium tracking-widest uppercase text-gold mb-3">Popular Vouchers</p>
@@ -43,7 +43,7 @@ export default function PopularVouchers() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="min-w-[280px] snap-start flex-shrink-0"
+              className="min-w-[240px] sm:min-w-[280px] snap-start flex-shrink-0"
             >
               <Link
                 to={`/vouchers/${v.id}`}

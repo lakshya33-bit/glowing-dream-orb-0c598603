@@ -25,8 +25,8 @@ export default function Footer() {
     <footer className="relative border-t border-border/50 py-16">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mb-12">
+          <div className="sm:col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <img src={logo} alt="CardPerks" className="h-9 w-auto rounded-lg" />
             </Link>
@@ -46,7 +46,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex gap-16">
+          <div className="flex gap-12 sm:gap-16">
             <div>
               <h4 className="font-semibold text-sm mb-4 text-gold">Platform</h4>
               <div className="flex flex-col gap-3">
