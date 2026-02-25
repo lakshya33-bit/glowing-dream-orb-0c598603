@@ -111,9 +111,23 @@ export default function Dashboard() {
 
       <section className="pb-12">
         <div className="container mx-auto px-4">
+          {/* Mobile profile header — only shown below lg */}
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="lg:hidden mb-4 glass-card rounded-2xl p-4 flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold/30 to-gold/10 flex items-center justify-center flex-shrink-0">
+              <User className="w-5 h-5 text-gold" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h2 className="font-serif font-bold text-base truncate">Rahul Kumar</h2>
+              <p className="text-[11px] text-muted-foreground truncate">rahul@example.com</p>
+            </div>
+            <span className="text-[9px] font-bold tracking-wider uppercase shimmer-badge px-3 py-1 rounded-full bg-gold/10 flex-shrink-0">
+              ✦ Premium
+            </span>
+          </motion.div>
+
           <div className="grid lg:grid-cols-4 gap-6 -mt-2">
-            {/* Sidebar profile */}
-            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-1">
+            {/* Sidebar profile — desktop only */}
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="hidden lg:block lg:col-span-1">
               <div className="glass-card rounded-2xl p-6 mb-6">
                 <div className="relative w-20 h-20 mx-auto mb-4">
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-gold/30 to-gold/10 flex items-center justify-center">
@@ -160,7 +174,7 @@ export default function Dashboard() {
             </motion.div>
 
             {/* Main content */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 col-span-4">
               {/* Summary stats with sparklines */}
               <div className="grid sm:grid-cols-3 gap-4 mb-8">
                 {statCards.map((s, i) => (
@@ -192,10 +206,10 @@ export default function Dashboard() {
 
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="bg-secondary/50 border border-border/50 mb-6">
-                  <TabsTrigger value="cards" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><CreditCard className="w-3.5 h-3.5 mr-1" /> My Cards</TabsTrigger>
-                  <TabsTrigger value="favorites" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><Heart className="w-3.5 h-3.5 mr-1" /> Favorites</TabsTrigger>
-                  <TabsTrigger value="rewards" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><TrendingUp className="w-3.5 h-3.5 mr-1" /> Rewards</TabsTrigger>
-                  <TabsTrigger value="activity" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><Bell className="w-3.5 h-3.5 mr-1" /> Activity</TabsTrigger>
+                  <TabsTrigger value="cards" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><CreditCard className="w-3.5 h-3.5 sm:mr-1" /><span className="hidden sm:inline">My </span>Cards</TabsTrigger>
+                  <TabsTrigger value="favorites" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><Heart className="w-3.5 h-3.5 sm:mr-1" /><span className="hidden sm:inline">Favorites</span><span className="sm:hidden">Favs</span></TabsTrigger>
+                  <TabsTrigger value="rewards" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><TrendingUp className="w-3.5 h-3.5 sm:mr-1" />Rewards</TabsTrigger>
+                  <TabsTrigger value="activity" className="data-[state=active]:bg-gold data-[state=active]:text-background text-xs"><Bell className="w-3.5 h-3.5 sm:mr-1" />Activity</TabsTrigger>
                 </TabsList>
 
                 <AnimatePresence mode="wait">
@@ -293,7 +307,7 @@ export default function Dashboard() {
                       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl p-6">
                         <h3 className="font-serif text-lg font-semibold mb-1">Rewards Earned</h3>
                         <p className="text-xs text-muted-foreground mb-6">Monthly reward points value (₹)</p>
-                        <ResponsiveContainer width="100%" height={250}>
+                        <ResponsiveContainer width="100%" height={300}>
                           <BarChart data={rewardsSummary}>
                             <defs>
                               <linearGradient id="barGold" x1="0" y1="0" x2="0" y2="1">

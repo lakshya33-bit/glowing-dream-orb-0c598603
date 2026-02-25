@@ -66,7 +66,7 @@ export default function ExploreMore() {
             >
               <Link
                 to={s.href}
-                className={`block glass-card rounded-2xl p-8 group hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 h-full bg-gradient-to-br ${s.gradientFrom} to-transparent`}
+                className={`block glass-card rounded-2xl p-8 group hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5 hover:scale-[1.02] h-full bg-gradient-to-br ${s.gradientFrom} to-transparent`}
               >
                 <span className="inline-block text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4">
                   {s.badge}

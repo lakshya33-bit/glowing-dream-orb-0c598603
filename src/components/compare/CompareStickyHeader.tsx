@@ -8,7 +8,7 @@ export default function CompareStickyHeader({ selected, onRemove, visible }: Sti
   if (!visible || selected.length < 2) return null;
   return (
     <motion.div initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -60, opacity: 0 }}
-      className="fixed top-20 left-0 right-0 z-30 backdrop-blur-xl bg-background/80 border-b border-border/30 shadow-lg">
+      className="fixed top-16 sm:top-20 left-0 right-0 z-30 backdrop-blur-xl bg-background/80 border-b border-border/30 shadow-lg">
       <div className="container mx-auto px-4 py-3">
         <div className={`grid gap-4 ${selected.length <= 2 ? "grid-cols-2 max-w-2xl mx-auto" : selected.length <= 3 ? "grid-cols-3 max-w-4xl mx-auto" : "grid-cols-2 lg:grid-cols-4"}`}>
           {selected.map((card) => (

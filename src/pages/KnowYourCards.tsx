@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Link, useNavigate } from "react-router-dom";
 import PageLayout from "@/components/PageLayout";
 import BackToTop from "@/components/BackToTop";
@@ -232,19 +233,36 @@ export default function KnowYourCards() {
                     </button>
                   ))}
                 </div>
-                <div className="flex items-center gap-1.5">
+                {/* Sort: dropdown on mobile, inline buttons on desktop */}
+                <div className="flex items-center gap-2">
                   <span className="text-[10px] text-muted-foreground uppercase tracking-wider mr-1">Sort:</span>
-                  {([["rating", "Rating"], ["fee-low", "Fee ↑"], ["fee-high", "Fee ↓"]] as [SortOption, string][]).map(([val, label]) => (
-                    <button
-                      key={val}
-                      onClick={() => setSortBy(val)}
-                      className={`text-[11px] px-2.5 py-1.5 rounded-lg transition-all ${
-                        sortBy === val ? "bg-gold/15 text-gold font-semibold" : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  ))}
+                  {/* Mobile sort dropdown */}
+                  <div className="sm:hidden flex-1 max-w-[160px]">
+                    <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortOption)}>
+                      <SelectTrigger className="h-8 text-xs bg-secondary/50 border-border/50">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="rating">Rating</SelectItem>
+                        <SelectItem value="fee-low">Fee: Low to High</SelectItem>
+                        <SelectItem value="fee-high">Fee: High to Low</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {/* Desktop sort buttons */}
+                  <div className="hidden sm:flex items-center gap-1.5">
+                    {([["rating", "Rating"], ["fee-low", "Fee ↑"], ["fee-high", "Fee ↓"]] as [SortOption, string][]).map(([val, label]) => (
+                      <button
+                        key={val}
+                        onClick={() => setSortBy(val)}
+                        className={`text-[11px] px-2.5 py-1.5 rounded-lg transition-all ${
+                          sortBy === val ? "bg-gold/15 text-gold font-semibold" : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -273,86 +291,124 @@ export default function KnowYourCards() {
                         (e.currentTarget as HTMLElement).style.boxShadow = isSelected ? `0 10px 15px -3px rgba(248,197,52,0.1)` : "";
                       }}
                     >
-                      {/* Card image area */}
-                      <div className="relative p-5 pb-3">
-                        <div className="relative aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 group/card">
-                          {card.image ? (
-                            <img src={card.image} alt={card.name} className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" />
-                          ) : (
-                            <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66, ${card.color}33)` }}>
-                              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_60%)]" />
-                              <div className="absolute bottom-4 left-5">
-                                <p className="text-xs text-white/50 font-medium tracking-widest uppercase">{card.issuer}</p>
-                                <p className="text-sm text-white/80 font-semibold mt-0.5">{card.name}</p>
-                              </div>
-                              <div className="absolute top-4 right-5 text-white/40 text-[10px] font-medium tracking-wider uppercase">{card.network}</div>
-                            </div>
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                        </div>
-                        {/* Top Pick badge */}
-                        {isTopPick && (
-                          <div className="absolute top-7 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1 bg-gold px-2.5 py-1 rounded-full shadow-lg shadow-gold/30">
-                            <Award className="w-3 h-3 text-background" />
-                            <span className="text-[10px] font-bold text-background tracking-wide">TOP PICK</span>
+                      {/* Mobile: compact horizontal list item */}
+                      <div className="md:hidden">
+                        <div className="flex items-center gap-3 p-3 active:scale-[0.98] transition-transform">
+                          <div className="w-20 h-[50px] rounded-lg overflow-hidden shadow-lg flex-shrink-0">
+                            {card.image ? (
+                              <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66)` }} />
+                            )}
                           </div>
-                        )}
-                        <div className="absolute top-7 right-7 flex items-center gap-1 bg-background/70 backdrop-blur-md px-2 py-1 rounded-lg shadow-lg">
-                          <Star className="w-3 h-3 text-gold fill-gold" /><span className="text-xs font-medium">{card.rating}</span>
-                        </div>
-                        <div className="absolute top-7 left-7 z-10">
-                          <FavoriteButton
-                            isFav={isFav(card.id)}
-                            onToggle={() => toggleFav(card.id)}
-                            className="bg-background/70 backdrop-blur-md shadow-lg hover:bg-background/90"
-                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5 mb-0.5">
+                              <h3 className="font-semibold text-sm truncate">{card.name}</h3>
+                              {isTopPick && <span className="text-[8px] font-bold bg-gold text-background px-1.5 py-0.5 rounded-full flex-shrink-0">TOP</span>}
+                            </div>
+                            <p className="text-[10px] text-muted-foreground">{card.issuer} · {card.network}</p>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="flex items-center gap-0.5 text-[10px]"><Star className="w-2.5 h-2.5 text-gold fill-gold" />{card.rating}</span>
+                              <span className="text-[10px] text-muted-foreground">·</span>
+                              <span className="text-[10px] text-gold font-medium">{card.rewards}</span>
+                              <span className="text-[10px] text-muted-foreground">·</span>
+                              <span className="text-[10px]">{card.fee}</span>
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-1.5 flex-shrink-0">
+                            <button onClick={() => setQuickViewCard(card)} className="text-[10px] px-2.5 py-1.5 rounded-lg gold-outline-btn">View</button>
+                            <FavoriteButton
+                              isFav={isFav(card.id)}
+                              onToggle={() => toggleFav(card.id)}
+                              className="bg-background/70 shadow-sm w-7 h-7 rounded-lg text-xs"
+                            />
+                          </div>
                         </div>
                       </div>
-                      <div className="px-5 pb-5">
-                        {/* Tier badge */}
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${card.color}15`, color: card.color }}>
-                            {card.type}
-                          </span>
+
+                      {/* Desktop: full card layout */}
+                      <div className="hidden md:block">
+                        {/* Card image area */}
+                        <div className="relative p-5 pb-3">
+                          <div className="relative aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 group/card">
+                            {card.image ? (
+                              <img src={card.image} alt={card.name} className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" />
+                            ) : (
+                              <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66, ${card.color}33)` }}>
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_60%)]" />
+                                <div className="absolute bottom-4 left-5">
+                                  <p className="text-xs text-white/50 font-medium tracking-widest uppercase">{card.issuer}</p>
+                                  <p className="text-sm text-white/80 font-semibold mt-0.5">{card.name}</p>
+                                </div>
+                                <div className="absolute top-4 right-5 text-white/40 text-[10px] font-medium tracking-wider uppercase">{card.network}</div>
+                              </div>
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                          </div>
+                          {/* Top Pick badge */}
+                          {isTopPick && (
+                            <div className="absolute top-7 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1 bg-gold px-2.5 py-1 rounded-full shadow-lg shadow-gold/30">
+                              <Award className="w-3 h-3 text-background" />
+                              <span className="text-[10px] font-bold text-background tracking-wide">TOP PICK</span>
+                            </div>
+                          )}
+                          <div className="absolute top-7 right-7 flex items-center gap-1 bg-background/70 backdrop-blur-md px-2 py-1 rounded-lg shadow-lg">
+                            <Star className="w-3 h-3 text-gold fill-gold" /><span className="text-xs font-medium">{card.rating}</span>
+                          </div>
+                          <div className="absolute top-7 left-7 z-10">
+                            <FavoriteButton
+                              isFav={isFav(card.id)}
+                              onToggle={() => toggleFav(card.id)}
+                              className="bg-background/70 backdrop-blur-md shadow-lg hover:bg-background/90"
+                            />
+                          </div>
                         </div>
-                        <h3 className="font-serif font-bold text-lg">{card.name}</h3>
-                        <p className="text-xs text-muted-foreground mb-1.5">{card.issuer} · {card.network}</p>
-                        {/* bestFor preview pills */}
-                        <div className="flex flex-wrap gap-1 mb-3">
-                          {card.bestFor.slice(0, 2).map((b) => (
-                            <span key={b} className="text-[10px] px-2 py-0.5 rounded-full bg-gold/8 text-gold/80">{b}</span>
-                          ))}
-                        </div>
-                        <div className="grid grid-cols-3 gap-3 mb-4">
-                          <div className="text-center bg-secondary/30 rounded-xl py-2"><p className="text-[10px] text-muted-foreground uppercase">Fee</p><p className="text-sm font-semibold">{card.fee}</p></div>
-                          <div className="text-center bg-secondary/30 rounded-xl py-2"><p className="text-[10px] text-muted-foreground uppercase">Rewards</p><p className="text-sm font-semibold text-gold">{card.rewards}</p></div>
-                          <div className="text-center bg-secondary/30 rounded-xl py-2"><p className="text-[10px] text-muted-foreground uppercase">Lounge</p><p className="text-sm font-semibold">{card.lounge}</p></div>
-                        </div>
-                        {/* Consolidated action row */}
-                        <div className="flex gap-2">
-                          <button onClick={() => setQuickViewCard(card)} className="flex-1 text-xs py-2 rounded-lg gold-outline-btn flex items-center justify-center gap-1"><Eye className="w-3 h-3" /> Quick View</button>
-                          <Link to={`/cards/${card.id}`} className="flex-1 text-xs py-2 rounded-lg gold-btn flex items-center justify-center gap-1"><ExternalLink className="w-3 h-3" /> Full View</Link>
-                          <button
-                            onClick={() => toggleCompare(card.id)}
-                            className={`text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1 ${
-                              isSelected
-                                ? "bg-gold text-background"
-                                : "glass-card hover:border-gold/30 text-muted-foreground hover:text-gold"
-                            }`}
-                          >
-                            {isSelected ? <Check className="w-3 h-3" /> : <GitCompare className="w-3 h-3" />}
-                          </button>
-                          <button
-                            onClick={() => toggleMyCard(card.id)}
-                            className={`text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-center ${
-                              isMyCard(card.id)
-                                ? "bg-gold/15 text-gold border border-gold/30"
-                                : "glass-card hover:border-gold/30 text-muted-foreground hover:text-gold"
-                            }`}
-                            title={isMyCard(card.id) ? "In My Cards" : "Add to My Cards"}
-                          >
-                            {isMyCard(card.id) ? <Check className="w-3 h-3" /> : <Wallet className="w-3 h-3" />}
-                          </button>
+                        <div className="px-5 pb-5">
+                          {/* Tier badge */}
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${card.color}15`, color: card.color }}>
+                              {card.type}
+                            </span>
+                          </div>
+                          <h3 className="font-serif font-bold text-lg">{card.name}</h3>
+                          <p className="text-xs text-muted-foreground mb-1.5">{card.issuer} · {card.network}</p>
+                          {/* bestFor preview pills */}
+                          <div className="flex flex-wrap gap-1 mb-3">
+                            {card.bestFor.slice(0, 2).map((b) => (
+                              <span key={b} className="text-[10px] px-2 py-0.5 rounded-full bg-gold/8 text-gold/80">{b}</span>
+                            ))}
+                          </div>
+                          <div className="grid grid-cols-3 gap-3 mb-4">
+                            <div className="text-center bg-secondary/30 rounded-xl py-2"><p className="text-[10px] text-muted-foreground uppercase">Fee</p><p className="text-sm font-semibold">{card.fee}</p></div>
+                            <div className="text-center bg-secondary/30 rounded-xl py-2"><p className="text-[10px] text-muted-foreground uppercase">Rewards</p><p className="text-sm font-semibold text-gold">{card.rewards}</p></div>
+                            <div className="text-center bg-secondary/30 rounded-xl py-2"><p className="text-[10px] text-muted-foreground uppercase">Lounge</p><p className="text-sm font-semibold">{card.lounge}</p></div>
+                          </div>
+                          {/* Consolidated action row */}
+                          <div className="flex gap-2">
+                            <button onClick={() => setQuickViewCard(card)} className="flex-1 text-xs py-2 rounded-lg gold-outline-btn flex items-center justify-center gap-1"><Eye className="w-3 h-3" /> Quick View</button>
+                            <Link to={`/cards/${card.id}`} className="flex-1 text-xs py-2 rounded-lg gold-btn flex items-center justify-center gap-1"><ExternalLink className="w-3 h-3" /> Full View</Link>
+                            <button
+                              onClick={() => toggleCompare(card.id)}
+                              className={`text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-1 ${
+                                isSelected
+                                  ? "bg-gold text-background"
+                                  : "glass-card hover:border-gold/30 text-muted-foreground hover:text-gold"
+                              }`}
+                            >
+                              {isSelected ? <Check className="w-3 h-3" /> : <GitCompare className="w-3 h-3" />}
+                            </button>
+                            <button
+                              onClick={() => toggleMyCard(card.id)}
+                              className={`text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-center ${
+                                isMyCard(card.id)
+                                  ? "bg-gold/15 text-gold border border-gold/30"
+                                  : "glass-card hover:border-gold/30 text-muted-foreground hover:text-gold"
+                              }`}
+                              title={isMyCard(card.id) ? "In My Cards" : "Add to My Cards"}
+                            >
+                              {isMyCard(card.id) ? <Check className="w-3 h-3" /> : <Wallet className="w-3 h-3" />}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -393,7 +449,9 @@ export default function KnowYourCards() {
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass-card rounded-2xl p-6">
                     <h3 className="font-serif text-lg font-semibold mb-1">Monthly Spending</h3>
                     <p className="text-xs text-muted-foreground mb-6">Last 6 months trend</p>
-                    <ResponsiveContainer width="100%" height={220}>
+                    <div className="overflow-x-auto -mx-2 px-2">
+                      <div className="min-w-[280px]">
+                        <ResponsiveContainer width="100%" height={220}>
                       <LineChart data={expenseData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="hsl(220 12% 18%)" />
                         <XAxis dataKey="month" tick={{ fill: "hsl(220 10% 55%)", fontSize: 12 }} axisLine={false} />
@@ -401,7 +459,9 @@ export default function KnowYourCards() {
                         <RechartsTooltip contentStyle={{ background: "hsl(220 18% 10%)", border: "1px solid hsl(220 12% 18%)", borderRadius: 12, color: "#fff", fontSize: 12 }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Spent"]} />
                         <Line type="monotone" dataKey="amount" stroke="hsl(43 55% 56%)" strokeWidth={2.5} dot={{ fill: "hsl(43 55% 56%)", r: 4 }} activeDot={{ r: 6 }} />
                       </LineChart>
-                    </ResponsiveContainer>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
                   </motion.div>
 
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="glass-card rounded-2xl p-6">

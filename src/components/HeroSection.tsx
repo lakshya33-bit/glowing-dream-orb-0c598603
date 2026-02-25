@@ -95,18 +95,18 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10 px-4 sm:px-0"
         >
           <Link
             to="/vouchers"
-            className="gold-btn px-8 py-3.5 rounded-xl text-sm flex items-center gap-2 group"
+            className="gold-btn w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm flex items-center justify-center gap-2 group"
           >
             Browse Vouchers
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
             to="/cards"
-            className="gold-outline-btn px-8 py-3.5 rounded-xl text-sm"
+            className="gold-outline-btn w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm text-center"
           >
             Compare Cards
           </Link>
@@ -146,7 +146,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 0.6 }}
-          className="flex items-center justify-center gap-2 text-xs text-muted-foreground"
+          className="flex items-center justify-center gap-2 text-xs text-muted-foreground whitespace-nowrap"
         >
           <div className="flex -space-x-2">
             {[...Array(4)].map((_, i) => (
