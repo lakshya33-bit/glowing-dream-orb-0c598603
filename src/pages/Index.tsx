@@ -42,7 +42,7 @@ function FeaturedCards() {
                 <Link
                   key={card.id}
                   to={`/cards/${card.id}`}
-                  className="group glass-card rounded-2xl overflow-hidden active:scale-[0.97] transition-transform duration-200 relative flex-shrink-0 w-[75vw] snap-center"
+                  className="group glass-card rounded-2xl overflow-hidden active:scale-[0.97] transition-transform duration-200 relative flex-shrink-0 w-[70vw] snap-center"
                 >
                   <div className="relative aspect-[1.586/1] overflow-hidden">
                     {card.image ? (

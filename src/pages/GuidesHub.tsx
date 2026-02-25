@@ -45,9 +45,9 @@ export default function GuidesHub() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="scroll-fade-container flex gap-2 overflow-x-auto pb-2 mb-8 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
           {guideCategories.map((cat) => (
-            <button key={cat} onClick={() => setCategory(cat)} className={`px-4 py-2 text-sm rounded-lg transition-colors ${category === cat ? "bg-gold text-background font-medium" : "bg-secondary/50 text-muted-foreground hover:text-foreground"}`}>{cat}</button>
+            <button key={cat} onClick={() => setCategory(cat)} className={`px-4 py-2 text-sm rounded-lg transition-colors whitespace-nowrap flex-shrink-0 ${category === cat ? "bg-gold text-background font-medium" : "bg-secondary/50 text-muted-foreground hover:text-foreground"}`}>{cat}</button>
           ))}
         </div>
 
@@ -58,7 +58,7 @@ export default function GuidesHub() {
               return (
                 <ScrollReveal key={guide.slug} delay={i * 0.05}>
                   <Link to={`/guides/${guide.slug}`} className="block group">
-                    <div className="glass-card rounded-xl p-8 h-full tilt-card hover:border-gold/30 transition-all relative overflow-hidden">
+                    <div className="glass-card rounded-xl p-5 sm:p-8 h-full tilt-card hover:border-gold/30 transition-all relative overflow-hidden">
                       <Badge className="bg-gold/10 text-gold border-gold/20 mb-4">Featured</Badge>
                       <div className="flex items-center gap-3 mb-4">
                         <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `${guide.color}22` }}>
