@@ -105,12 +105,13 @@ function QuickView({ voucher, open, onClose }: { voucher: Voucher | null; open: 
         </div>
         <div className="space-y-2 max-h-[280px] sm:max-h-[340px] overflow-y-auto pr-1">
           {voucher.platformRates.map((pr, i) => (
-            <motion.div
+            <motion.a
               key={pr.platform}
+              href="#"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05 }}
-            className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 transition-all cursor-pointer ${
+              className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 transition-all cursor-pointer active:scale-[0.98] ${
                 pr.highlight
                   ? "border border-gold/30 bg-gradient-to-r from-gold/8 to-transparent shadow-sm shadow-gold/5"
                   : "glass-card"
@@ -147,7 +148,7 @@ function QuickView({ voucher, open, onClose }: { voucher: Voucher | null; open: 
               }`}>
                 Buy <ArrowUpRight className="w-3.5 h-3.5" />
               </span>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>

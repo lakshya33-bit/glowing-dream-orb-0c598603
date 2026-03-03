@@ -326,7 +326,7 @@ export default function Dashboard() {
                             <XAxis dataKey="month" tick={{ fill: "hsl(var(--chart-text))", fontSize: 12 }} axisLine={false} />
                             <YAxis tick={{ fill: "hsl(var(--chart-text))", fontSize: 12 }} axisLine={false} tickFormatter={(v) => `₹${v / 1000}K`} />
                             <Tooltip contentStyle={{ background: "hsl(var(--tooltip-bg))", border: "1px solid hsl(var(--tooltip-border))", borderRadius: 12, color: "hsl(var(--tooltip-text))", fontSize: 12 }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Earned"]} />
-                            <Bar dataKey="earned" fill="url(#barGold)" radius={[8, 8, 0, 0]} />
+                            <Bar dataKey="earned" fill="hsl(var(--gold))" radius={[8, 8, 0, 0]} />
                           </BarChart>
                         </ResponsiveContainer>
                       </motion.div>
