@@ -157,7 +157,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile: search, theme, sign in only — favorites & wallet live in bottom nav */}
+          {/* Mobile: search, theme, favorites, wallet, sign in */}
           <div className="lg:hidden flex items-center gap-1">
             <button onClick={() => setSearchOpen(true)} aria-label="Search" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg">
               <Search className="w-4 h-4" />
@@ -165,6 +165,12 @@ export default function Navbar() {
             <button onClick={toggleTheme} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg">
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
+            <Link to="/favorites" aria-label="Favorites" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg">
+              <Heart className="w-4 h-4" />
+            </Link>
+            <Link to="/my-cards" aria-label="My Cards Wallet" className="p-2 text-muted-foreground hover:text-gold transition-colors rounded-lg">
+              <Wallet className="w-4 h-4" />
+            </Link>
             <Link to="/login" className="ml-1 px-3 py-1.5 text-[11px] font-medium gold-outline-btn rounded-lg">
               Sign In
             </Link>
