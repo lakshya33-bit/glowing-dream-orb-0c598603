@@ -259,51 +259,56 @@ export default function MyCards() {
                           >
                             <div className="absolute -inset-[1px] rounded-[22px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: `linear-gradient(135deg, ${card.color}30, transparent 50%, ${card.color}10)` }} />
 
-                            <div className="relative glass-card rounded-[22px] overflow-hidden border border-border/20 hover:border-border/40 transition-all duration-500 hover:-translate-y-0.5">
-                              {/* Brand color top border */}
-                              <div className="h-0.5" style={{ background: `linear-gradient(90deg, ${card.color}, ${card.color}40)` }} />
+                             <div className="relative glass-card rounded-[22px] overflow-hidden border border-border/20 hover:border-border/40 transition-all duration-500 hover:-translate-y-0.5">
+                               {/* Brand color top border */}
+                               <div className="h-0.5" style={{ background: `linear-gradient(90deg, ${card.color}, ${card.color}40)` }} />
 
-                              {/* Card image header */}
-                              <div className="relative h-44 overflow-hidden" style={{ background: `linear-gradient(135deg, ${card.color}22, ${card.color}08)` }}>
-                                {card.image ? (
-                                  <img src={card.image} alt={card.name} className="absolute inset-0 w-full h-full object-contain p-4" />
-                                ) : (
-                                  <>
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent_60%)]" />
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                      <CreditCard className="w-16 h-16 opacity-20" style={{ color: card.color }} />
-                                    </div>
-                                  </>
-                                )}
-                                <div className="absolute top-4 right-4 flex items-center gap-2">
-                                  <FavoriteButton isFav={isFav(card.id)} onToggle={() => toggleFav(card.id)} className="bg-black/20 backdrop-blur-md hover:bg-black/30" />
-                                  <button
-                                    onClick={() => toggleMyCard(card.id)}
-                                    className="p-1.5 rounded-lg bg-black/20 backdrop-blur-md hover:bg-red-500/30 transition-colors text-white/80 hover:text-white"
-                                    title="Remove from My Cards"
-                                  >
-                                    <X className="w-3.5 h-3.5" />
-                                  </button>
-                                </div>
-                                <div className="absolute bottom-3 left-5">
-                                  <p className="text-sm font-bold text-foreground">{card.name}</p>
-                                  <p className="text-[10px] text-muted-foreground">{card.issuer} · {card.network}</p>
-                                </div>
-                              </div>
+                               {/* Card header — image left, info right */}
+                               <div className="flex items-stretch gap-0" style={{ background: `linear-gradient(135deg, ${card.color}18, ${card.color}06, transparent)` }}>
+                                 {/* Square image */}
+                                 <div className="w-36 h-36 flex-shrink-0 flex items-center justify-center p-3">
+                                   {card.image ? (
+                                     <img src={card.image} alt={card.name} className="w-full h-full object-contain drop-shadow-lg" />
+                                   ) : (
+                                     <div className="w-full h-full rounded-xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${card.color}40, ${card.color}15)` }}>
+                                       <CreditCard className="w-10 h-10 opacity-30" style={{ color: card.color }} />
+                                     </div>
+                                   )}
+                                 </div>
+                                 {/* Card info */}
+                                 <div className="flex-1 flex flex-col justify-between py-4 pr-4 min-w-0">
+                                   <div className="flex items-start justify-between gap-2">
+                                     <div className="min-w-0">
+                                       <p className="text-sm font-bold text-foreground leading-tight truncate">{card.name}</p>
+                                       <p className="text-[10px] text-muted-foreground mt-0.5">{card.issuer}</p>
+                                       <div className="flex items-center gap-1 mt-1.5">
+                                         <Star className="w-3 h-3 text-gold fill-gold" />
+                                         <span className="text-[10px] font-semibold text-gold">{card.rating}</span>
+                                         <span className="text-[10px] text-muted-foreground ml-1">{card.network}</span>
+                                       </div>
+                                     </div>
+                                     <div className="flex items-center gap-1.5 flex-shrink-0">
+                                       <FavoriteButton isFav={isFav(card.id)} onToggle={() => toggleFav(card.id)} className="bg-secondary/50 hover:bg-secondary" />
+                                       <button
+                                         onClick={() => toggleMyCard(card.id)}
+                                         className="p-1.5 rounded-lg bg-secondary/50 hover:bg-red-500/20 transition-colors text-muted-foreground hover:text-red-400"
+                                         title="Remove from My Cards"
+                                       >
+                                         <X className="w-3.5 h-3.5" />
+                                       </button>
+                                     </div>
+                                   </div>
+                                   <div className="flex flex-wrap gap-1.5 mt-2">
+                                     <span className="text-[9px] px-2 py-0.5 rounded-md bg-gold/10 text-gold font-semibold">{card.fee}/yr</span>
+                                     <span className="text-[9px] px-2 py-0.5 rounded-md bg-secondary/40 text-muted-foreground">{card.rewards}</span>
+                                     <span className="text-[9px] px-2 py-0.5 rounded-md bg-secondary/40 text-muted-foreground">{card.lounge} lounge</span>
+                                   </div>
+                                 </div>
+                               </div>
 
                               {/* Card body */}
-                              <div className="p-5">
-                                {/* Stats row */}
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                  <span className="text-[10px] px-2.5 py-1 rounded-lg bg-gold/10 text-gold font-medium">{card.fee}/yr</span>
-                                  <span className="flex items-center gap-1 text-[10px] px-2.5 py-1 rounded-lg bg-secondary/40">
-                                    <Star className="w-3 h-3 text-gold fill-gold" />{card.rating}
-                                  </span>
-                                  <span className="text-[10px] px-2.5 py-1 rounded-lg bg-secondary/40 text-muted-foreground">{card.rewards}</span>
-                                  <span className="text-[10px] px-2.5 py-1 rounded-lg bg-secondary/40 text-muted-foreground">{card.lounge} lounge</span>
-                                </div>
-
-                                {/* Spend summary */}
+                               <div className="px-5 pb-5 pt-4">
+                                 {/* Spend summary */}
                                 <div className="grid grid-cols-3 gap-3 mb-4">
                                   <div className="rounded-xl p-3 bg-secondary/20 border border-border/15">
                                     <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">Spend</p>
@@ -496,13 +501,13 @@ export default function MyCards() {
                                 const pct = totalSpend > 0 ? (spend / totalSpend) * 100 : 0;
                                 return (
                                   <div key={card.id} className="flex items-center gap-4">
-                                    <div className="w-10 h-6 rounded-md flex-shrink-0 shadow-md overflow-hidden">
-                                      {card.image ? (
-                                        <img src={card.image} alt="" className="w-full h-full object-contain" />
-                                      ) : (
-                                        <div style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}AA)` }} className="w-full h-full" />
-                                      )}
-                                    </div>
+                                     <div className="w-8 h-8 rounded-lg flex-shrink-0 shadow-md overflow-hidden bg-secondary/30">
+                                       {card.image ? (
+                                         <img src={card.image} alt="" className="w-full h-full object-contain" />
+                                       ) : (
+                                         <div style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}AA)` }} className="w-full h-full" />
+                                       )}
+                                     </div>
                                     <div className="flex-1 min-w-0">
                                       <div className="flex items-center justify-between mb-1.5">
                                         <span className="text-xs font-semibold truncate">{card.name}</span>
