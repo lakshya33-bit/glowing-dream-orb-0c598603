@@ -468,7 +468,7 @@ export default function KnowYourCards() {
                         <XAxis dataKey="month" tick={{ fill: "hsl(220 10% 55%)", fontSize: 12 }} axisLine={false} />
                         <YAxis tick={{ fill: "hsl(220 10% 55%)", fontSize: 12 }} axisLine={false} tickFormatter={(v) => `₹${v / 1000}K`} />
                         <RechartsTooltip contentStyle={{ background: "hsl(220 18% 10%)", border: "1px solid hsl(220 12% 18%)", borderRadius: 12, color: "#fff", fontSize: 12 }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Spent"]} />
-                        <Line type="monotone" dataKey="amount" stroke="hsl(43 55% 56%)" strokeWidth={2.5} dot={{ fill: "hsl(43 55% 56%)", r: 4 }} activeDot={{ r: 6 }} />
+                        <Line type="monotone" dataKey="amount" stroke="hsl(var(--gold))" strokeWidth={2.5} dot={{ fill: "hsl(var(--gold))", r: 4 }} activeDot={{ r: 6 }} />
                       </LineChart>
                         </ResponsiveContainer>
                       </div>
@@ -510,7 +510,7 @@ export default function KnowYourCards() {
                       <XAxis dataKey="card" tick={{ fill: "hsl(220 10% 55%)", fontSize: 11 }} axisLine={false} />
                       <YAxis tick={{ fill: "hsl(220 10% 55%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => `₹${v / 1000}K`} />
                       <RechartsTooltip contentStyle={{ background: "hsl(220 18% 10%)", border: "1px solid hsl(220 12% 18%)", borderRadius: 12, color: "#fff", fontSize: 12 }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Spent"]} />
-                      <Bar dataKey="amount" fill="hsl(43 55% 56%)" radius={[6, 6, 0, 0]} />
+                      <Bar dataKey="amount" fill="hsl(var(--gold))" radius={[6, 6, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </motion.div>

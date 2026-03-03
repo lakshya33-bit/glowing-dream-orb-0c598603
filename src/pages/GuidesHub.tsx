@@ -80,10 +80,13 @@ export default function GuidesHub() {
         )}
 
         {filtered.length === 0 && (
-          <div className="text-center py-20">
-            <BookOpen className="w-16 h-16 mx-auto text-muted-foreground/20 mb-4" />
-            <p className="text-muted-foreground">No guides found for "{search || category}"</p>
-            <button onClick={() => { setSearch(""); setCategory("All"); }} className="mt-4 text-sm text-gold hover:text-gold/80 transition-colors">Clear filters</button>
+          <div className="text-center py-24 flex flex-col items-center">
+            <div className="w-20 h-20 rounded-2xl bg-secondary/40 flex items-center justify-center mb-5">
+              <BookOpen className="w-10 h-10 text-muted-foreground/30" />
+            </div>
+            <p className="text-lg font-semibold mb-1">No guides found</p>
+            <p className="text-sm text-muted-foreground mb-5">No results for "{search || category}". Try a different term.</p>
+            <button onClick={() => { setSearch(""); setCategory("All"); }} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl gold-outline-btn text-sm">Clear filters</button>
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

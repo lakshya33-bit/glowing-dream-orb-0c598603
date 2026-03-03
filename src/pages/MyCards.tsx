@@ -200,7 +200,7 @@ export default function MyCards() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="grid grid-cols-3 gap-3 mb-12"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-12"
               >
                 {[
                   { label: "Rewards Earned", value: totalRewards > 0 ? `₹${totalRewards.toLocaleString()}` : "₹0", icon: Sparkles, accent: true },

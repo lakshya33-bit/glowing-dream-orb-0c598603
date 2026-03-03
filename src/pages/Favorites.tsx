@@ -44,7 +44,7 @@ export default function Favorites() {
             <TabsTrigger value="guides">Guides ({favGuides.length})</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="cards">
+          <TabsContent value="cards" className="min-h-[500px]">
             {favCards.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favCards.map((card) => (
@@ -69,7 +69,7 @@ export default function Favorites() {
             ) : <EmptyState icon={CreditCard} text="No favorite cards yet" />}
           </TabsContent>
 
-          <TabsContent value="vouchers">
+          <TabsContent value="vouchers" className="min-h-[500px]">
             {favVouchers.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favVouchers.map((v) => {
@@ -93,7 +93,7 @@ export default function Favorites() {
             ) : <EmptyState icon={Gift} text="No favorite vouchers yet" />}
           </TabsContent>
 
-          <TabsContent value="guides">
+          <TabsContent value="guides" className="min-h-[500px]">
             {favGuides.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favGuides.map((g) => {
