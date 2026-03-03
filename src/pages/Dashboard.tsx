@@ -272,13 +272,15 @@ export default function Dashboard() {
                         </div>
                       ) : (
                         <>
-                          {favoriteVoucherList.length > 0 && (
+              {favoriteVoucherList.length > 0 && (
                             <div className="grid sm:grid-cols-2 gap-4 mb-6">
                               {favoriteVoucherList.map((v, i) => (
                                 <motion.div key={v.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}>
                                   <Link to={`/vouchers/${v.id}`} className="glass-card rounded-xl p-4 flex items-center justify-between group hover:border-gold/30 hover:shadow-lg hover:shadow-gold/5 transition-all block">
                                     <div className="flex items-center gap-3">
-                                      <div className="w-8 h-8 rounded-lg" style={{ backgroundColor: `${v.color}15` }} />
+                                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${v.color}20` }}>
+                                        <Gift className="w-4 h-4" style={{ color: v.color }} />
+                                      </div>
                                       <div>
                                         <h3 className="font-semibold text-sm group-hover:text-gold transition-colors">{v.name}</h3>
                                         <p className="text-xs text-muted-foreground">{v.discount}</p>
