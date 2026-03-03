@@ -135,7 +135,7 @@ export default function CompareCards() {
                   />
                   <div className="relative w-20 h-[50px] rounded-xl overflow-hidden shadow-lg shadow-black/30">
                     {card.image ? (
-                      <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+                      <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
                     ) : (
                       <div
                         className="w-full h-full"

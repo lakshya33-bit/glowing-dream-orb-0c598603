@@ -243,7 +243,7 @@ export default function Dashboard() {
                                 <div className="flex items-center gap-4">
                                   <div className="w-16 h-10 rounded-lg overflow-hidden shadow-lg shadow-black/30 flex-shrink-0">
                                     {card.image ? (
-                                      <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+                                      <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
                                     ) : (
                                       <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}88)` }} />
                                     )}

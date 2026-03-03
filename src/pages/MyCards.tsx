@@ -498,7 +498,7 @@ export default function MyCards() {
                                   <div key={card.id} className="flex items-center gap-4">
                                     <div className="w-10 h-6 rounded-md flex-shrink-0 shadow-md overflow-hidden">
                                       {card.image ? (
-                                        <img src={card.image} alt="" className="w-full h-full object-cover" />
+                                        <img src={card.image} alt="" className="w-full h-full object-contain" />
                                       ) : (
                                         <div style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}AA)` }} className="w-full h-full" />
                                       )}

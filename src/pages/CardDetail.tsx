@@ -119,7 +119,7 @@ export default function CardDetail() {
                     className="relative aspect-[1.586/1] rounded-xl overflow-hidden shadow-2xl shadow-black/50"
                   >
                     {card.image ? (
-                      <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+                      <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
                     ) : (
                       <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66, ${card.color}33)` }}>
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_60%)]" />
@@ -301,7 +301,7 @@ export default function CardDetail() {
                 <Link key={c.id} to={`/cards/${c.id}`} className="glass-card rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-1 transition-all duration-300">
                   <div className="relative aspect-[1.586/1] overflow-hidden">
                     {c.image ? (
-                      <img src={c.image} alt={c.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <img src={c.image} alt={c.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                       <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${c.color}, ${c.color}66)` }} />
                     )}
