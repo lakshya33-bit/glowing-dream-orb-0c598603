@@ -116,7 +116,7 @@ export default function CardDetail() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="relative aspect-[1.586/1] rounded-xl overflow-hidden shadow-2xl shadow-black/50"
+                    className="relative aspect-square rounded-xl overflow-hidden shadow-2xl shadow-black/50"
                   >
                     {card.image ? (
                       <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
@@ -299,7 +299,7 @@ export default function CardDetail() {
             <div className="grid sm:grid-cols-3 gap-4">
               {similarCards.map((c) => (
                 <Link key={c.id} to={`/cards/${c.id}`} className="glass-card rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-1 transition-all duration-300">
-                  <div className="relative aspect-[1.586/1] overflow-hidden">
+                  <div className="relative aspect-square overflow-hidden">
                     {c.image ? (
                       <img src={c.image} alt={c.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
                     ) : (
