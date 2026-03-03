@@ -1,166 +1,130 @@
 
-## Analysis of Every Page
+## Complete UI/UX Audit — All Pages, Mobile & Desktop
 
-### Pages reviewed:
-1. **Home (Index)** – Hero, HowItWorks, PopularVouchers, FeaturedCards, ExploreMore
-2. **Vouchers** – Filter/category bar, search, grid of voucher cards, QuickView drawer/dialog
-3. **Know Your Cards** – Tabs (Cards + Expenses), filter/sort bar, card grid, QuickView drawer/dialog
-4. **Compare Cards** – Card selector, comparison table
-5. **Dashboard** – Sidebar + main content with stats, tabs
-6. **Perk AI** – Full-screen chat interface
-7. **Guides Hub** – Featured + regular guide grid
-8. **Navbar** – Desktop & mobile top bars
-9. **MobileBottomNav** – 5-tab bottom navigation
+After reading every page file carefully, here's a full report of bugs and improvements found:
 
 ---
 
-## Proposed Improvements (Mobile & Desktop – strict separation)
+### BUGS (functional issues)
 
-### 1. HOME PAGE
+**1. CardDetail — Sticky CTA overlaps mobile bottom nav**
+- `sticky bottom-6 z-30` sits at 24px from bottom. The mobile bottom nav is 56px tall. The sticky "Add to My Cards" bar gets hidden behind the bottom nav on mobile.
+- Fix: change `bottom-6` to `bottom-[72px] lg:bottom-6`
 
-**Mobile:**
-- The hero CTA buttons stack vertically, but the gap between them feels large. Reduce gap and make buttons full-width on mobile for a more native feel.
-- The stats bar (12+ Brands / 6 Cards…) has small text and tight spacing on small screens. Make each stat slightly taller and increase font size to `text-sm`.
-- The "Trusted by 10,000+" avatar row + text should be on a single line — currently the text wraps on 375px screens.
-- `HowItWorks` and `PopularVouchers` sections: add `pb-20` (bottom padding) only on mobile to prevent content hiding behind the sticky bottom nav.
-- `FeaturedCards` on mobile: carousel cards are `75vw` wide — reduce to `72vw` so there's a visible peek of the next card, hinting swipeability.
+**2. KnowYourCards — Compare floating bar overlaps bottom nav on mobile**
+- The `fixed bottom-6` compare bar is hidden behind the mobile bottom nav.
+- Fix: `bottom-20 lg:bottom-6`
 
-**Desktop:**
-- The hero h1 is `text-7xl` — looks great. The 3D scene on desktop is already nicely positioned.
-- `FeaturedCards` desktop grid is `lg:grid-cols-3`. The card hover shadows and lift are already polished. No major changes needed.
-- `ExploreMore` section: add `hover:scale-[1.02]` on the feature tiles to make the desktop hover states feel richer.
+**3. MyCards — Stats grid is `grid-cols-3` on all screens**
+- On 360px wide phones, 3-column `grid-cols-3` text like "Rewards Earned" is extremely cramped (each cell is ~110px wide with `text-[9px]`).
+- Fix: `grid-cols-3 sm:grid-cols-3` is fine but values need to be smaller, or switch to `grid-cols-1 sm:grid-cols-3` with a horizontal scroll on mobile.
 
----
+**4. VoucherDetail — Hero card has `p-8` on all screens**
+- On mobile the `p-8` padding on the main voucher hero card is too generous, pushing content below the fold unnecessarily.
+- Fix: `p-5 sm:p-8`
 
-### 2. NAVBAR
+**5. PerkAI — `pb-14` padding may not be enough**
+- The chat page uses `pb-14` but the bottom nav is `h-14` + `env(safe-area-inset-bottom)`. On iPhones with home indicator the content is clipped.
+- Fix: add `pb-[calc(3.5rem+env(safe-area-inset-bottom))]` on mobile
 
-**Mobile:**
-- The mobile top bar has: Search, Theme, Favorites, Wallet, Sign In. That's 5 elements cramped in ~180px. Since Favorites and Wallet already exist in the bottom nav (via Dashboard), **remove Heart and Wallet icons from the mobile top bar** to reduce clutter. Keep: Search, Theme toggle, Sign In button.
-- The Sign In button on mobile (`px-3 py-1.5 text-[11px]`) is already compact — keep it.
+**6. Dashboard — Mobile profile header missing Sign Out**
+- The mobile profile header (added in last round) shows name + badge but there's no way to sign out on mobile without reaching the desktop-only sidebar.
+- Fix: add a small Sign Out button or kebab menu to the mobile profile header.
 
-**Desktop:**
-- The "More" dropdown is `w-44` and sits on the right. When scrolled, the backdrop becomes visible — this is already good.
-- No major issues on desktop.
-
----
-
-### 3. VOUCHERS PAGE
-
-**Mobile:**
-- The search input + category filter bar are separate rows. On mobile, **merge the search bar into the category section** so the page header takes less vertical space before you see actual voucher cards.
-- The category pill row (`-mx-4 px-4`) has fade at edges — good. But the pills are `px-4 py-2` which is comfortable. Keep.
-- Voucher grid is `grid-cols-1` on mobile. Each card has `p-4 sm:p-6`. This is fine but the card's action buttons (Quick View, Favorite) could use `active:scale-95` touch feedback, which they currently lack.
-- The QuickView `Drawer` on mobile: the "Buy Now" button inside platform rows is `hidden sm:flex`. On mobile you can only see the rate but can't buy — add a visible tap area on the entire row to act as the buy trigger.
-
-**Desktop:**
-- The voucher grid is `xl:grid-cols-4` — fine. The tilt-card hover effect with dynamic shadow works.
-- The QuickView Dialog on desktop (`sm:max-w-2xl`) — platform list max-height is `max-h-[340px]` with scroll — this is fine.
-- Sort controls (`flex items-center`) are inline with results count — already compact.
+**7. Navbar — "Sign In" button always visible even when user would be logged in**
+- The Sign In button is hardcoded in the navbar for both mobile and desktop. When auth is eventually connected, this will be a UI bug. Already a UX inconsistency since Dashboard and My Cards pages exist without auth gates.
 
 ---
 
-### 4. KNOW YOUR CARDS (Cards & Expenses)
+### UX IMPROVEMENTS
 
-**Mobile:**
-- The page header section has the title + stats pills + compare button all stacked. On mobile the `Compare Cards` button sits below the description text — this is fine.
-- The filter + sort bar: filter chips are in a horizontal scroll row, then sort buttons are on a second row below. On mobile, **combine filter and sort into a single line** using a sort dropdown (Select) instead of inline buttons to save vertical space.
-- The card grid is `md:grid-cols-2 xl:grid-cols-3` — on mobile this renders as single column. Each card takes a lot of vertical space. **On mobile, switch to a more compact horizontal card layout** (image thumbnail on left, info on right, like the dashboard list view). This lets users scan more cards without scrolling excessively.
-- The Expenses tab on mobile has charts — bar charts need horizontal scroll at small widths. Wrap the `ResponsiveContainer` in an `overflow-x-auto` div on mobile.
+**8. Home (Index) — ExploreMore section `pb-20 lg:pb-0` missing**
+- The ExploreMore section is the last section before Footer. On mobile, the bottom nav overlaps this content. The `pb-16 lg:pb-0` is on the outer wrapper but ExploreMore itself doesn't have extra spacing.
+- Fix: Already handled by `pb-16` on root div. Verify visually.
 
-**Desktop:**
-- The 3-column card grid with tilt-card effect is polished. No major changes.
-- The Expenses tab: the pie chart + bar chart side by side on desktop could use more breathing room. Already renders in `grid md:grid-cols-2` which is appropriate.
+**9. Vouchers — "Buy Now" button hidden on mobile in QuickView drawer**
+- In the QuickView drawer, `button className="hidden sm:flex"` means mobile users see platform rates but have NO way to buy.
+- Fix: Make each platform row a full-width `<a>` link (wrapping the entire row) that acts as the buy trigger on mobile.
 
----
+**10. Vouchers — Sort controls below filter bar are cramped on narrow mobile**
+- "Sort: Best Rate / name / category" buttons on a single line below results count. On 360px screens with long labels this wraps awkwardly.
+- Fix: Already partly addressed, but "Best Rate" label is the longest. Consider abbreviating to "Rate" or hiding the sort label on mobile.
 
-### 5. COMPARE CARDS
+**11. KnowYourCards — Mobile compact card list has no "Add to My Cards" button**
+- The compact mobile list only shows Quick View + Favorite. The "Add to My Cards" (Wallet) button is desktop-only. On mobile users can't add cards directly from the list.
+- Fix: Add a small wallet icon button to the mobile compact item row alongside Quick View and Favorite.
 
-**Mobile:**
-- The card selector area and comparison table are full-width. The comparison table with multiple columns is very hard to read on mobile — it needs **horizontal scroll with sticky first column** (already present via `CompareTable`). Verify this is working.
-- The sticky header (`CompareStickyHeader`) sits at `top-20` which overlaps with the mobile navbar — should be `top-16` on mobile.
-- The `CompareEmptyState` popular pairs section: cards in a row — works on desktop. On mobile, stack them vertically as larger tap targets.
+**12. CardDetail — "Similar Cards" section shows random cards, not similar**
+- `cards.filter((c) => c.id !== id).slice(0, 3)` takes first 3 cards alphabetically, not ones with similar type/issuer.
+- Fix: Filter by same `type` or same `issuer` first, then fallback to others.
 
-**Desktop:**
-- Already clean. The 4-column max comparison table works well on desktop.
+**13. Dashboard — Stat cards sparklines still render on mobile (tiny + unreadable)**
+- The `w-16 h-8` sparkline AreaChart renders on mobile where it's too small to see. Plan said to remove sparklines on mobile but they weren't removed.
+- Fix: hide sparklines on mobile with `hidden sm:block` wrapper around the sparkline div.
 
----
+**14. GuidesHub — Missing SEO for guides page after search returns 0 results**
+- When search returns 0 guides, the page shows blank (no empty state). The featured and regular arrays would both be empty, rendering nothing.
+- Fix: Add a no-results empty state (similar to Vouchers' `SearchX` empty state).
 
-### 6. DASHBOARD
+**15. CompareCards — Empty slots grid is always `grid-cols-2 lg:grid-cols-4` for 4 slots**
+- When 0 cards are selected, the 4 empty slots render as `grid-cols-2 lg:grid-cols-4`. On mobile this creates 2 columns of "Add Card" slots which is fine, but each slot is cramped at ~150px.
+- Fix: The slot cards could be taller/more tappable on mobile.
 
-**Mobile:**
-- The sidebar (`lg:col-span-1`) only shows on `lg` screens and above — on mobile it's hidden. But there's **no mobile navigation within the dashboard page** — users on mobile only see the stat cards and tabs without the profile section. 
-- **Fix:** Show a compact horizontal profile card (avatar + name + badge) above the stat cards on mobile only.
-- The stat card sparklines (`w-16 h-8`) are very small. On mobile, reduce them to a simple colored dot/badge since they're not readable anyway.
-- The Tabs row has 4 tabs with icons + text — on mobile at 360px width this is very cramped. Use icon-only tabs on mobile with the label as a tooltip, or truncate to shorter labels: "Cards", "Favs", "Rewards", "Activity".
+**16. CompareCards — Comparison table doesn't use horizontal scroll on mobile**
+- `CompareTable` renders the table without an `overflow-x-auto` wrapper. For 3-4 cards on mobile, the columns get too narrow.
+- Fix: Wrap `CompareTable`'s section in `overflow-x-auto`.
 
-**Desktop:**
-- The `lg:grid-cols-4` layout (1 sidebar + 3 main) is well-structured.
-- The rewards chart (`ResponsiveContainer height={250}`) could be `height={300}` on desktop for better readability.
+**17. Favorites — No unfavorite action on cards/vouchers/guides in the list**
+- Users can view favorites but there's no heart/remove button on items in the Favorites page itself. Must navigate to the item to unfavorite.
+- Fix: Add `FavoriteButton` component to each item in the Favorites grid.
 
----
+**18. MyCards — Expense Tracker tab shows no data when no expenses added**
+- Charts render with empty data (0 values) without a helpful empty state. The CategoryBreakdown pie chart crashes if `categoryBreakdown` is empty (pie with no slices).
+- Fix: Add an empty state + "Add your first expense" CTA for the analytics section.
 
-### 7. PERK AI
+**19. MobileBottomNav — Active indicator is only color, no visual weight**
+- Active tab only changes text color to gold and stroke width. Would benefit from a small pill/dot indicator above the icon.
+- Fix: Add a `w-1 h-1 rounded-full bg-gold` dot above the active icon on mobile.
 
-**Mobile:**
-- The chat container uses `height: calc(100vh - 80px)`. On mobile this doesn't account for the bottom nav height (56px) + safe area. Change to `calc(100vh - 80px - 56px)` on mobile.
-- The quick action buttons grid is `grid-cols-2 sm:grid-cols-3` — fine on mobile.
-- The input area at the bottom has a `Send` button. On mobile the input sits too close to the bottom nav — add `pb-safe` / bottom padding.
-- The message bubbles are wide enough. User messages (`ml-12`) and AI messages work well.
-
-**Desktop:**
-- The `max-w-3xl` container is good for a chat UI.
-- Quick action cards could show on hover with a slight glow.
-
----
-
-### 8. GUIDES HUB
-
-**Mobile:**
-- The featured guides use `md:grid-cols-2` — on mobile it's single column. Each featured card has `p-8` padding which is quite generous — reduce to `p-5` on mobile.
-- Category filter buttons are `flex-wrap` — OK, but they can easily wrap to 3+ lines. Convert to a horizontal scroll row (like Vouchers/Cards pages) for consistency.
-- The regular (non-featured) guide grid: currently not shown in the snippet, but should be `grid-cols-1` on mobile.
-
-**Desktop:**
-- The centered header with badge + title looks clean.
-- Featured guides at `md:grid-cols-2` is correct.
+**20. PerkAI — Quick action buttons not visible after chat starts**
+- After sending the first message, the quick action chips disappear (`exit` animation). If the user wants to change topic, they must type manually. 
+- Fix: Show a compact "Suggestions" row at the bottom (above input) that shows 2-3 quick action chips even during chat.
 
 ---
 
-## Summary of Changes to Implement
+### VISUAL / POLISH IMPROVEMENTS
 
-### Files to edit:
+**21. All pages — Toast notifications appear behind bottom nav on mobile**
+- Sonner toasts default to `bottom-4` which gets covered by the 56px bottom nav.
+- Fix: Add `toastOptions={{ style: { bottom: '72px' } }}` or configure Sonner offset in `src/components/ui/sonner.tsx`.
 
-1. **`src/components/Navbar.tsx`** — Remove Heart + Wallet icons from mobile top bar only (they're in bottom nav already).
+**22. Vouchers + KnowYourCards — Page scrolls to top when switching tabs**
+- Tab switching (Cards ↔ Expenses) causes a scroll jump because of `AnimatePresence` height changes.
+- Fix: Add `min-h-[600px]` on `TabsContent` or preserve scroll position.
 
-2. **`src/pages/Index.tsx`** — 
-   - Add `pb-20 lg:pb-0` bottom padding to last section before Footer (mobile safe area for bottom nav).
-   - Reduce FeaturedCards carousel width from `75vw` to `70vw` for peek effect.
-   - Hero CTA buttons: `w-full sm:w-auto` for mobile full-width.
+**23. CardDetail — Breadcrumb overflows on mobile with long card names**
+- Long card names like "ICICI Emeralde Private Metal" cause the breadcrumb to wrap to 2+ lines on 375px.
+- Fix: Add `truncate` to the last breadcrumb item with a `max-w-[150px]`.
 
-3. **`src/components/HeroSection.tsx`** — Prevent avatar row text wrapping on 375px via `whitespace-nowrap` on the stats row.
+**24. Dashboard — Rewards chart hardcoded color uses raw HSL**
+- The bar chart fill uses hardcoded `hsl(43 55% 56%)`. In light mode this won't match the gold design token.
+- Fix: Use CSS variable `hsl(var(--gold))`.
 
-4. **`src/pages/Vouchers.tsx`** — 
-   - Add `active:scale-95` to mobile voucher card tap areas.
-   - Make platform row in QuickView drawer tappable (full row = buy trigger) on mobile by wrapping it in an `<a>` tag or button.
+---
 
-5. **`src/pages/KnowYourCards.tsx`** — 
-   - On mobile, replace sort inline buttons with a `<Select>` dropdown to free up a full row.
-   - On mobile, render card grid as `grid-cols-1` compact horizontal list items (thumbnail left, info right) instead of full vertical cards.
-   - Wrap Expenses bar chart in `overflow-x-auto` container on mobile.
+## Files to Edit
 
-6. **`src/pages/Dashboard.tsx`** — 
-   - Add compact mobile profile header above stat cards (mobile only).
-   - Shorten tab labels on mobile.
-   - Increase chart height on desktop.
-
-7. **`src/pages/PerkAI.tsx`** — 
-   - Fix chat container height on mobile to account for bottom nav.
-   - Add bottom padding to input area on mobile.
-
-8. **`src/pages/GuidesHub.tsx`** — 
-   - Reduce featured card padding on mobile (`p-5` instead of `p-8`).
-   - Convert category buttons to horizontal scroll row.
-
-9. **`src/components/compare/CompareStickyHeader.tsx`** — Fix `top-20` to `top-16` on mobile.
-
-This is a comprehensive set of targeted improvements. All mobile changes use `useIsMobile()` hook or responsive Tailwind classes (`sm:`, `lg:`, `md:`) to ensure zero impact on the desktop layout, and vice versa.
+| File | Changes |
+|------|---------|
+| `src/pages/CardDetail.tsx` | Fix sticky CTA bottom offset on mobile; fix similar cards logic; fix breadcrumb truncation |
+| `src/pages/KnowYourCards.tsx` | Fix floating compare bar z-index/bottom offset; add Wallet button to mobile card item; hide sparklines mobile |
+| `src/pages/MyCards.tsx` | Fix stats grid on narrow mobile; add expenses empty state |
+| `src/pages/VoucherDetail.tsx` | Fix hero padding on mobile |
+| `src/pages/Vouchers.tsx` | Make platform rows tappable on mobile in QuickView drawer |
+| `src/pages/GuidesHub.tsx` | Add empty search results state |
+| `src/pages/CompareCards.tsx` | Add overflow-x-auto to table |
+| `src/pages/Favorites.tsx` | Add FavoriteButton to each item |
+| `src/pages/PerkAI.tsx` | Fix bottom padding for safe area; add persistent suggestions row |
+| `src/pages/Dashboard.tsx` | Hide sparklines on mobile; add mobile sign out; fix chart color |
+| `src/components/MobileBottomNav.tsx` | Add active dot indicator |
+| `src/components/ui/sonner.tsx` | Fix toast position offset for mobile bottom nav |
