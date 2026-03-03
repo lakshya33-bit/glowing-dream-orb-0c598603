@@ -72,7 +72,7 @@ function CardQuickView({ card, open, onClose }: { card: CardType | null; open: b
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="w-24 sm:w-32 aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 flex-shrink-0">
             {card.image ? (
-              <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+              <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
             ) : (
               <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}88)` }} />
             )}
@@ -296,7 +296,7 @@ export default function KnowYourCards() {
                         <div className="flex items-center gap-3 p-3 active:scale-[0.98] transition-transform">
                           <div className="w-20 h-[50px] rounded-lg overflow-hidden shadow-lg flex-shrink-0">
                             {card.image ? (
-                              <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+                              <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
                             ) : (
                               <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66)` }} />
                             )}
@@ -343,7 +343,7 @@ export default function KnowYourCards() {
                         <div className="relative p-5 pb-3">
                           <div className="relative aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 group/card">
                             {card.image ? (
-                              <img src={card.image} alt={card.name} className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" />
+                              <img src={card.image} alt={card.name} className="w-full h-full object-contain transition-transform duration-500 group-hover/card:scale-105" />
                             ) : (
                               <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66, ${card.color}33)` }}>
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_60%)]" />
@@ -578,7 +578,7 @@ export default function KnowYourCards() {
                           <div className="relative group/chip text-center">
                             <div className="w-14 h-[36px] rounded-lg overflow-hidden shadow-md border border-border/20">
                               {c.image ? (
-                                <img src={c.image} alt={c.name} className="w-full h-full object-cover" />
+                                <img src={c.image} alt={c.name} className="w-full h-full object-contain" />
                               ) : (
                                 <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${c.color}, ${c.color}88)` }} />
                               )}

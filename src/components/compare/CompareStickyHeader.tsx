@@ -14,7 +14,7 @@ export default function CompareStickyHeader({ selected, onRemove, visible }: Sti
           {selected.map((card) => (
             <div key={card.id} className="flex items-center gap-2">
               <div className="w-10 h-[26px] rounded-lg overflow-hidden shadow-sm flex-shrink-0">
-                {card.image ? <img src={card.image} alt={card.name} className="w-full h-full object-cover" /> :
+                {card.image ? <img src={card.image} alt={card.name} className="w-full h-full object-contain" /> :
                   <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}88)` }} />}
               </div>
               <span className="text-xs font-medium truncate flex-1">{card.name}</span>

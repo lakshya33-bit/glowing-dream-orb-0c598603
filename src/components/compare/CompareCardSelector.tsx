@@ -32,7 +32,7 @@ export default function CompareCardSelector({ cards, onSelect, selectedIds, slot
               <button key={card.id} onClick={() => { onSelect(card); setOpen(false); setSearch(""); }}
                 className="w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-secondary/50 transition-colors flex items-center gap-3">
                 <div className="w-8 h-5 rounded overflow-hidden flex-shrink-0">
-                  {card.image ? <img src={card.image} alt="" className="w-full h-full object-cover" /> :
+                  {card.image ? <img src={card.image} alt="" className="w-full h-full object-contain" /> :
                     <div className="w-full h-full" style={{ background: card.color }} />}
                 </div>
                 <div className="flex-1 min-w-0">

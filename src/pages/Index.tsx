@@ -46,7 +46,7 @@ function FeaturedCards() {
                 >
                   <div className="relative aspect-[1.586/1] overflow-hidden">
                     {card.image ? (
-                      <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+                      <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
                     ) : (
                       <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66)` }} />
                     )}
@@ -70,7 +70,7 @@ function FeaturedCards() {
               <Link key={card.id} to={`/cards/${card.id}`} className="group glass-card rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-1 transition-all duration-300 relative">
                 <div className="relative aspect-[1.586/1] overflow-hidden">
                   {card.image ? (
-                    <img src={card.image} alt={card.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img src={card.image} alt={card.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
                   ) : (
                     <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${card.color}, ${card.color}66)` }} />
                   )}
