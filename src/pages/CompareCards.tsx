@@ -168,7 +168,7 @@ export default function CompareCards() {
 
           {/* Comparison table */}
           {selected.length >= 2 && (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="overflow-x-auto">
               <CompareTable selected={selected} />
             </motion.div>
           )}

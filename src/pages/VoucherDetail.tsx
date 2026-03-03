@@ -76,7 +76,7 @@ export default function VoucherDetail() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card rounded-2xl p-8 mb-8"
+            className="glass-card rounded-2xl p-5 sm:p-8 mb-8"
             style={{ background: `linear-gradient(135deg, ${voucher.color}08, transparent 60%)` }}
           >
             <div className="flex flex-col sm:flex-row items-start gap-6">

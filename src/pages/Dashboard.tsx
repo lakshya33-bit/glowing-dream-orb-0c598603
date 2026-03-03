@@ -123,6 +123,13 @@ export default function Dashboard() {
             <span className="text-[9px] font-bold tracking-wider uppercase shimmer-badge px-3 py-1 rounded-full bg-gold/10 flex-shrink-0">
               ✦ Premium
             </span>
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors flex-shrink-0"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </motion.div>
 
           <div className="grid lg:grid-cols-4 gap-6 -mt-2">
@@ -183,7 +190,7 @@ export default function Dashboard() {
                       <div className="w-9 h-9 rounded-lg bg-gold/10 flex items-center justify-center">
                         <s.icon className="w-4 h-4 text-gold" />
                       </div>
-                      <div className="w-16 h-8">
+                      <div className="hidden sm:block w-16 h-8">
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={s.sparkline}>
                             <defs>

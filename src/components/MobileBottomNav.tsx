@@ -60,7 +60,12 @@ export default function MobileBottomNav() {
                 aria-current={active ? "page" : undefined}
                 aria-label={tab.label}
               >
-                <tab.icon className={`w-5 h-5 ${active ? "stroke-[2.5]" : ""}`} />
+                <div className="relative">
+                  <tab.icon className={`w-5 h-5 ${active ? "stroke-[2.5]" : ""}`} />
+                  {active && (
+                    <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-gold" />
+                  )}
+                </div>
                 <span className={`text-[10px] font-medium ${active ? "font-semibold" : ""}`}>{tab.label}</span>
               </Link>
             );

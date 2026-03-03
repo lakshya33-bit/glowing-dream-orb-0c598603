@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Search, Clock } from "lucide-react";
+import { BookOpen, Search, Clock, SearchX } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import ScrollReveal from "@/components/ScrollReveal";
 import FavoriteButton from "@/components/FavoriteButton";
@@ -79,6 +79,13 @@ export default function GuidesHub() {
           </div>
         )}
 
+        {filtered.length === 0 && (
+          <div className="text-center py-20">
+            <BookOpen className="w-16 h-16 mx-auto text-muted-foreground/20 mb-4" />
+            <p className="text-muted-foreground">No guides found for "{search || category}"</p>
+            <button onClick={() => { setSearch(""); setCategory("All"); }} className="mt-4 text-sm text-gold hover:text-gold/80 transition-colors">Clear filters</button>
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {regular.map((guide, i) => {
             const Icon = guide.icon;

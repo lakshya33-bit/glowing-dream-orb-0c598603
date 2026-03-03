@@ -57,7 +57,14 @@ export default function CardDetail() {
   const { toggle: toggleMyCard, has: isMyCard } = useMyCards();
   const { toggle: toggleFav, isFav } = useFavorites("card");
 
-  const similarCards = cards.filter((c) => c.id !== id).slice(0, 3);
+  const similarCards = (() => {
+    const sameType = cards.filter((c) => c.id !== id && c.type === card?.type);
+    if (sameType.length >= 3) return sameType.slice(0, 3);
+    const sameIssuer = cards.filter((c) => c.id !== id && c.issuer === card?.issuer);
+    const combined = [...new Map([...sameType, ...sameIssuer].map((c) => [c.id, c])).values()];
+    if (combined.length >= 3) return combined.slice(0, 3);
+    return [...combined, ...cards.filter((c) => c.id !== id && !combined.find((x) => x.id === c.id))].slice(0, 3);
+  })();
 
   useEffect(() => {
     if (card) document.title = `${card.name} | CardPerks`;
@@ -96,7 +103,7 @@ export default function CardDetail() {
             <ChevronRight className="w-3 h-3" />
             <Link to="/cards" className="hover:text-gold transition-colors">Know Your Cards</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-foreground">{card.name}</span>
+            <span className="text-foreground truncate max-w-[140px] sm:max-w-none">{card.name}</span>
           </nav>
 
           {/* Header with brand-color tint */}
@@ -314,7 +321,7 @@ export default function CardDetail() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="sticky bottom-6 z-30"
+            className="sticky bottom-[72px] lg:bottom-6 z-30"
           >
             <div className="glass-card rounded-2xl border border-gold/20 shadow-2xl shadow-gold/10 p-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
