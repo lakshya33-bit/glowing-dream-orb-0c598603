@@ -299,9 +299,9 @@ export default function CardDetail() {
             <div className="grid sm:grid-cols-3 gap-4">
               {similarCards.map((c) => (
                 <Link key={c.id} to={`/cards/${c.id}`} className="glass-card rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-1 transition-all duration-300">
-                  <div className="relative aspect-square overflow-hidden">
+                  <div className="relative aspect-video overflow-hidden bg-secondary/20">
                     {c.image ? (
-                      <img src={c.image} alt={c.name} className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                      <img src={c.image} alt={c.name} className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                       <div className="w-full h-full" style={{ background: `linear-gradient(135deg, ${c.color}, ${c.color}66)` }} />
                     )}

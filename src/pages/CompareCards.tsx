@@ -128,12 +128,12 @@ export default function CompareCards() {
                   <X className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
                 </button>
                 {/* Card image with glow */}
-                <div className="relative mb-3">
+                 <div className="relative mb-3">
                   <div
                     className="absolute inset-0 rounded-xl blur-lg opacity-30"
                     style={{ background: card.color }}
                   />
-                  <div className="relative w-20 h-[50px] rounded-xl overflow-hidden shadow-lg shadow-black/30">
+                  <div className="relative w-20 aspect-square rounded-xl overflow-hidden shadow-lg shadow-black/30">
                     {card.image ? (
                       <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
                     ) : (

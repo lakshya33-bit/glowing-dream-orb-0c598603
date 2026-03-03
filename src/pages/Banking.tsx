@@ -220,8 +220,8 @@ function CrossBankComparison() {
       </h2>
       <p className="text-xs text-muted-foreground text-center mb-8">Side-by-side comparison across all banks</p>
 
-      <div className="glass-card rounded-2xl border border-border/20 overflow-hidden">
-        <Table>
+      <div className="glass-card rounded-2xl border border-border/20 overflow-hidden overflow-x-auto">
+        <Table className="min-w-[500px]">
           <TableHeader>
             <TableRow className="border-border/20">
               <TableHead className="text-[11px] font-bold text-foreground">Bank</TableHead>
@@ -372,8 +372,8 @@ export default function Banking() {
             </p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="flex justify-center gap-1 mb-8">
-            <div className="relative flex gap-1 p-1 rounded-2xl bg-secondary/30 border border-border/20">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="flex justify-center mb-8 overflow-x-auto px-4">
+            <div className="relative flex gap-1 p-1 rounded-2xl bg-secondary/30 border border-border/20 flex-shrink-0">
               <motion.div
                 className="absolute top-1 bottom-1 rounded-xl bg-gold shadow-lg shadow-gold/20"
                 layout
@@ -390,7 +390,7 @@ export default function Banking() {
                 <button
                   key={s.key}
                   onClick={() => setActiveSection(s.key)}
-                  className={`relative z-10 px-8 py-3.5 rounded-xl text-sm font-semibold flex items-center gap-2.5 transition-colors duration-300 ${
+                  className={`relative z-10 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl text-sm font-semibold flex items-center gap-2.5 transition-colors duration-300 whitespace-nowrap ${
                     activeSection === s.key ? "text-background" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -450,13 +450,13 @@ export default function Banking() {
                 transition={{ duration: 0.3 }}
               >
                 <TooltipProvider>
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="flex gap-2.5 flex-wrap justify-center mb-8">
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }} className="flex gap-2.5 overflow-x-auto pb-2 justify-start sm:justify-center mb-8 px-1">
                     {banks.map((bank) => (
                       <Tooltip key={bank.id}>
                         <TooltipTrigger asChild>
-                          <button
+                           <button
                             onClick={() => setActiveBank(bank.id)}
-                            className={`px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition-all duration-300 flex items-center gap-2 ${
+                            className={`px-6 py-3 rounded-xl text-xs font-bold tracking-wide transition-all duration-300 flex items-center gap-2 whitespace-nowrap flex-shrink-0 ${
                               activeBank === bank.id
                                 ? "bg-gold text-background shadow-xl shadow-gold/25 scale-105"
                                 : "glass-card text-muted-foreground hover:text-foreground hover:border-gold/20 hover:shadow-md"

@@ -114,7 +114,7 @@ export default function VoucherDetail() {
                   <XAxis dataKey="month" tick={{ fill: "hsl(220 10% 55%)", fontSize: 11 }} axisLine={false} />
                   <YAxis tick={{ fill: "hsl(220 10% 55%)", fontSize: 11 }} axisLine={false} tickFormatter={(v) => `${v}%`} />
                   <Tooltip contentStyle={{ background: "hsl(220 18% 10%)", border: "1px solid hsl(220 12% 18%)", borderRadius: 12, color: "#fff", fontSize: 12 }} formatter={(v: number) => [`${v}%`, "Rate"]} />
-                  <Line type="monotone" dataKey="rate" stroke="hsl(43 55% 56%)" strokeWidth={2.5} dot={{ fill: "hsl(43 55% 56%)", r: 4 }} />
+                  <Line type="monotone" dataKey="rate" stroke="hsl(var(--gold))" strokeWidth={2.5} dot={{ fill: "hsl(var(--gold))", r: 4 }} />
                 </LineChart>
               </ResponsiveContainer>
             </motion.div>
