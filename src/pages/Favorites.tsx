@@ -48,17 +48,22 @@ export default function Favorites() {
             {favCards.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {favCards.map((card) => (
-                  <Link key={card.id} to={`/cards/${card.id}`} className="block group">
-                    <div className="glass-card rounded-xl overflow-hidden tilt-card hover:border-gold/30">
-                      <div className="h-40 flex items-center justify-center p-4" style={{ background: `linear-gradient(135deg, ${card.color}22, ${card.color}08)` }}>
-                        {card.image ? <img src={card.image} alt={card.name} className="h-28 w-auto object-contain" /> : <CreditCard className="w-20 h-20 text-muted-foreground/30" />}
+                  <div key={card.id} className="relative group">
+                    <Link to={`/cards/${card.id}`} className="block">
+                      <div className="glass-card rounded-xl overflow-hidden tilt-card hover:border-gold/30">
+                        <div className="h-40 flex items-center justify-center p-4" style={{ background: `linear-gradient(135deg, ${card.color}22, ${card.color}08)` }}>
+                          {card.image ? <img src={card.image} alt={card.name} className="h-28 w-auto object-contain" /> : <CreditCard className="w-20 h-20 text-muted-foreground/30" />}
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-semibold group-hover:text-gold transition-colors">{card.name}</h3>
+                          <p className="text-xs text-muted-foreground">{card.issuer} · {card.fee}</p>
+                        </div>
                       </div>
-                      <div className="p-4">
-                        <h3 className="font-semibold group-hover:text-gold transition-colors">{card.name}</h3>
-                        <p className="text-xs text-muted-foreground">{card.issuer} · {card.fee}</p>
-                      </div>
+                    </Link>
+                    <div className="absolute top-3 right-3">
+                      <FavoriteButton isFav={cardFavs.isFav(card.id)} onToggle={() => cardFavs.toggle(card.id)} />
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             ) : <EmptyState icon={CreditCard} text="No favorite cards yet" />}
@@ -70,13 +75,18 @@ export default function Favorites() {
                 {favVouchers.map((v) => {
                   const Icon = iconMap[v.category] || Gift;
                   return (
-                    <Link key={v.id} to={`/vouchers/${v.id}`} className="block group">
-                      <div className="glass-card rounded-xl p-6 tilt-card hover:border-gold/30">
-                        <Icon className="w-8 h-8 mb-3" style={{ color: v.color }} />
-                        <h3 className="font-semibold group-hover:text-gold transition-colors">{v.name}</h3>
-                        <p className="text-sm text-muted-foreground">{v.discount}</p>
+                    <div key={v.id} className="relative group">
+                      <Link to={`/vouchers/${v.id}`} className="block">
+                        <div className="glass-card rounded-xl p-6 tilt-card hover:border-gold/30">
+                          <Icon className="w-8 h-8 mb-3" style={{ color: v.color }} />
+                          <h3 className="font-semibold group-hover:text-gold transition-colors">{v.name}</h3>
+                          <p className="text-sm text-muted-foreground">{v.discount}</p>
+                        </div>
+                      </Link>
+                      <div className="absolute top-3 right-3">
+                        <FavoriteButton isFav={voucherFavs.isFav(v.id)} onToggle={() => voucherFavs.toggle(v.id)} />
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -89,13 +99,18 @@ export default function Favorites() {
                 {favGuides.map((g) => {
                   const Icon = g.icon;
                   return (
-                    <Link key={g.slug} to={`/guides/${g.slug}`} className="block group">
-                      <div className="glass-card rounded-xl p-6 tilt-card hover:border-gold/30">
-                        <Icon className="w-8 h-8 mb-3" style={{ color: g.color }} />
-                        <h3 className="font-semibold group-hover:text-gold transition-colors">{g.title}</h3>
-                        <p className="text-xs text-muted-foreground">{g.readTime} · {g.category}</p>
+                    <div key={g.slug} className="relative group">
+                      <Link to={`/guides/${g.slug}`} className="block">
+                        <div className="glass-card rounded-xl p-6 tilt-card hover:border-gold/30">
+                          <Icon className="w-8 h-8 mb-3" style={{ color: g.color }} />
+                          <h3 className="font-semibold group-hover:text-gold transition-colors">{g.title}</h3>
+                          <p className="text-xs text-muted-foreground">{g.readTime} · {g.category}</p>
+                        </div>
+                      </Link>
+                      <div className="absolute top-3 right-3">
+                        <FavoriteButton isFav={guideFavs.isFav(g.slug)} onToggle={() => guideFavs.toggle(g.slug)} />
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>

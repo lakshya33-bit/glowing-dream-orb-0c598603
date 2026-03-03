@@ -317,11 +317,22 @@ export default function KnowYourCards() {
                           </div>
                           <div className="flex flex-col gap-1.5 flex-shrink-0">
                             <button onClick={() => setQuickViewCard(card)} className="text-[10px] px-2.5 py-1.5 rounded-lg gold-outline-btn">View</button>
-                            <FavoriteButton
-                              isFav={isFav(card.id)}
-                              onToggle={() => toggleFav(card.id)}
-                              className="bg-background/70 shadow-sm w-7 h-7 rounded-lg text-xs"
-                            />
+                            <div className="flex gap-1">
+                              <FavoriteButton
+                                isFav={isFav(card.id)}
+                                onToggle={() => toggleFav(card.id)}
+                                className="bg-background/70 shadow-sm w-7 h-7 rounded-lg text-xs"
+                              />
+                              <button
+                                onClick={() => toggleMyCard(card.id)}
+                                className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all ${
+                                  isMyCard(card.id) ? "bg-gold/15 text-gold border border-gold/30" : "bg-background/70 shadow-sm text-muted-foreground hover:text-gold"
+                                }`}
+                                title={isMyCard(card.id) ? "In My Cards" : "Add to My Cards"}
+                              >
+                                {isMyCard(card.id) ? <Check className="w-3 h-3" /> : <Wallet className="w-3 h-3" />}
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -553,7 +564,7 @@ export default function KnowYourCards() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-6 left-0 right-0 z-50 flex justify-center"
+            className="fixed bottom-[72px] lg:bottom-6 left-0 right-0 z-50 flex justify-center"
           >
             <TooltipProvider>
               <div className="glass-card rounded-2xl border border-gold/20 shadow-2xl shadow-gold/10 px-6 py-4 flex items-center gap-4">

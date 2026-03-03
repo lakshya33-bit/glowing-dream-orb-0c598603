@@ -110,7 +110,7 @@ function QuickView({ voucher, open, onClose }: { voucher: Voucher | null; open: 
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05 }}
-              className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 transition-all ${
+            className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 transition-all cursor-pointer ${
                 pr.highlight
                   ? "border border-gold/30 bg-gradient-to-r from-gold/8 to-transparent shadow-sm shadow-gold/5"
                   : "glass-card"
@@ -142,11 +142,11 @@ function QuickView({ voucher, open, onClose }: { voucher: Voucher | null; open: 
                 <p className="text-[9px] text-muted-foreground uppercase tracking-wider">{pr.type}</p>
                 <p className={`text-sm sm:text-base font-bold ${pr.highlight ? "text-gold" : "text-foreground"}`}>{pr.savings}</p>
               </div>
-              <button className={`hidden sm:flex px-4 py-2.5 rounded-xl text-xs font-semibold transition-all items-center gap-1.5 flex-shrink-0 ${
-                pr.highlight ? "gold-btn shadow-lg shadow-gold/20" : "bg-secondary/80 hover:bg-secondary text-foreground"
+              <span className={`flex px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-semibold transition-all items-center gap-1.5 flex-shrink-0 ${
+                pr.highlight ? "gold-btn shadow-lg shadow-gold/20" : "bg-secondary/80 text-foreground"
               }`}>
-                Buy Now <ArrowUpRight className="w-3.5 h-3.5" />
-              </button>
+                Buy <ArrowUpRight className="w-3.5 h-3.5" />
+              </span>
             </motion.div>
           ))}
         </div>
@@ -301,13 +301,13 @@ export default function Vouchers() {
             </p>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <span>Sort:</span>
-              {(["rate", "name", "category"] as SortOption[]).map((opt) => (
+                  {(["rate", "name", "category"] as SortOption[]).map((opt) => (
                 <button
                   key={opt}
                   onClick={() => setSortBy(opt)}
                   className={`px-2.5 py-1.5 rounded-lg transition-colors capitalize ${sortBy === opt ? "bg-gold/15 text-gold font-medium" : "hover:text-foreground"}`}
                 >
-                  {opt === "rate" ? "Best Rate" : opt}
+                  {opt === "rate" ? <><span className="sm:hidden">Rate</span><span className="hidden sm:inline">Best Rate</span></> : opt}
                 </button>
               ))}
             </div>

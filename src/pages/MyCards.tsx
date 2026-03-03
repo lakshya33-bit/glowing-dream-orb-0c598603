@@ -200,7 +200,7 @@ export default function MyCards() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="grid grid-cols-3 gap-4 mb-12"
+                className="grid grid-cols-3 gap-3 mb-12"
               >
                 {[
                   { label: "Rewards Earned", value: totalRewards > 0 ? `₹${totalRewards.toLocaleString()}` : "₹0", icon: Sparkles, accent: true },
@@ -212,15 +212,15 @@ export default function MyCards() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 + i * 0.06 }}
-                    className={`glass-card rounded-2xl p-5 border border-border/20 hover:border-gold/20 transition-all duration-300 group ${stat.accent ? "ring-1 ring-gold/15" : ""}`}
+                    className={`glass-card rounded-2xl p-4 sm:p-5 border border-border/20 hover:border-gold/20 transition-all duration-300 group ${stat.accent ? "ring-1 ring-gold/15" : ""}`}
                   >
                     <div className="flex items-center justify-between mb-3">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform ${stat.accent ? "bg-gold/20 shadow-lg shadow-gold/10" : "bg-gold/10"}`}>
                         <stat.icon className="w-4 h-4 text-gold" />
                       </div>
                     </div>
-                    <p className={`text-2xl font-serif font-bold ${stat.accent ? "text-gold" : ""}`}>{stat.value}</p>
-                    <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-wider">{stat.label}</p>
+                    <p className={`text-xl sm:text-2xl font-serif font-bold ${stat.accent ? "text-gold" : ""}`}>{stat.value}</p>
+                    <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-1 uppercase tracking-wider">{stat.label}</p>
                   </motion.div>
                 ))}
               </motion.div>

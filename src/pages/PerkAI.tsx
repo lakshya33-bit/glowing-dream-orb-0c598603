@@ -179,7 +179,7 @@ export default function PerkAI() {
             <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--gold)/0.08)_0%,transparent_70%)]" />
           </div>
 
-          <div className="container mx-auto px-4 max-w-3xl flex flex-col relative pb-14 lg:pb-0" style={{ height: "calc(100vh - 80px)" }}>
+          <div className="container mx-auto px-4 max-w-3xl flex flex-col relative pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0" style={{ height: "calc(100vh - 80px)" }}>
             <AnimatePresence mode="wait">
               {!hasStarted ? (
                 <motion.div
