@@ -70,7 +70,7 @@ function CardQuickView({ card, open, onClose }: { card: CardType | null; open: b
     <div>
       <div className="p-4 sm:p-6 pb-3 sm:pb-4" style={{ background: `linear-gradient(135deg, ${card.color}08, ${card.color}15, transparent)` }}>
         <div className="flex items-center gap-3 sm:gap-4">
-          <div className="w-24 sm:w-32 aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 flex-shrink-0">
+          <div className="w-24 sm:w-32 aspect-square rounded-xl overflow-hidden shadow-xl shadow-black/40 flex-shrink-0">
             {card.image ? (
               <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
             ) : (
@@ -341,7 +341,7 @@ export default function KnowYourCards() {
                       <div className="hidden md:block">
                         {/* Card image area */}
                         <div className="relative p-5 pb-3">
-                          <div className="relative aspect-[1.586/1] rounded-xl overflow-hidden shadow-xl shadow-black/40 group/card">
+                          <div className="relative aspect-square rounded-xl overflow-hidden shadow-xl shadow-black/40 group/card">
                             {card.image ? (
                               <img src={card.image} alt={card.name} className="w-full h-full object-contain transition-transform duration-500 group-hover/card:scale-105" />
                             ) : (
