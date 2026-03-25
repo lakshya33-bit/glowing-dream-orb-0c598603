@@ -294,7 +294,7 @@ export default function KnowYourCards() {
                       {/* Mobile: compact horizontal list item */}
                       <div className="md:hidden">
                         <div className="flex items-center gap-3 p-3 active:scale-[0.98] transition-transform">
-                          <div className="w-20 h-[50px] rounded-lg overflow-hidden shadow-lg flex-shrink-0">
+                          <div className="w-20 aspect-[5/3] rounded-lg overflow-hidden shadow-lg flex-shrink-0">
                             {card.image ? (
                               <img src={card.image} alt={card.name} className="w-full h-full object-contain" />
                             ) : (

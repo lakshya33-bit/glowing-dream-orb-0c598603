@@ -94,7 +94,10 @@ export default function VoucherDetail() {
               <div className="flex items-center gap-2 flex-shrink-0">
                 <FavoriteButton isFav={isFav(voucher.id)} onToggle={() => toggleFav(voucher.id)} />
                 <button
-                  onClick={() => navigator.clipboard.writeText(window.location.href)}
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.href);
+                    import("sonner").then(({ toast }) => toast.success("Link copied!"));
+                  }}
                   className="p-2 rounded-xl glass-card text-muted-foreground hover:text-foreground transition-colors"
                   title="Copy link"
                 >
