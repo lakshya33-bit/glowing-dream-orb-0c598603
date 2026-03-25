@@ -325,7 +325,7 @@ export default function CardDetail() {
           >
             <div className="glass-card rounded-2xl border border-gold/20 shadow-2xl shadow-gold/10 p-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-[26px] rounded-lg overflow-hidden shadow-md flex-shrink-0">
+                <div className="w-10 aspect-[5/3] rounded-lg overflow-hidden shadow-md flex-shrink-0">
                   {card.image ? (
                     <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
                   ) : (
