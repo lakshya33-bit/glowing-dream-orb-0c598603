@@ -116,6 +116,7 @@ export default function GuidesHub() {
           })}
         </div>
       </section>
+      <BackToTop />
     </PageLayout>
   );
 }

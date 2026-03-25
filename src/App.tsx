@@ -78,6 +78,7 @@ const App = () => (
             <MobileBottomNav />
           </BrowserRouter>
         </TooltipProvider>
+        </ErrorBoundary>
       </ThemeProvider>
     </QueryClientProvider>
   </HelmetProvider>

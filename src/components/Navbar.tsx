@@ -123,6 +123,7 @@ export default function Navbar() {
                         key={link.href}
                         to={link.href}
                         role="menuitem"
+                        onClick={() => setMoreOpen(false)}
                         className={`block px-4 py-2.5 text-sm transition-colors ${
                           isActive(link.href) ? "text-gold bg-gold/10" : "text-muted-foreground hover:text-gold hover:bg-secondary/50"
                         }`}

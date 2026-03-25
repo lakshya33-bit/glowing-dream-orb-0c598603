@@ -323,7 +323,7 @@ export default function CardDetail() {
             transition={{ delay: 0.6 }}
             className="sticky bottom-[72px] lg:bottom-6 z-30"
           >
-            <div className="glass-card rounded-2xl border border-gold/20 shadow-2xl shadow-gold/10 p-4 flex items-center justify-between gap-4">
+            <div className="glass-card rounded-2xl border border-gold/20 shadow-2xl shadow-gold/10 backdrop-blur-xl p-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 aspect-[5/3] rounded-lg overflow-hidden shadow-md flex-shrink-0">
                   {card.image ? (

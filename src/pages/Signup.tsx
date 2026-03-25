@@ -12,6 +12,7 @@ export default function Signup() {
 
   return (
     <PageLayout>
+      <SEO title="Sign Up" description="Create a CardPerks account to track your cards, save favorites, and get personalized recommendations." path="/signup" />
       <section className="container mx-auto px-4 py-20 flex items-center justify-center min-h-[70vh]">
         <ScrollReveal>
           <div className="glass-card rounded-2xl p-8 w-full max-w-md">

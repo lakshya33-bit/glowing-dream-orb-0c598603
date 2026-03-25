@@ -35,7 +35,7 @@ export default function Login() {
                 </button>
               </div>
               <div className="flex justify-end">
-                <a href="#" className="text-xs text-gold hover:underline">Forgot password?</a>
+                <button type="button" className="text-xs text-gold hover:underline">Forgot password?</button>
               </div>
               <button type="submit" className="w-full gold-btn rounded-lg py-2.5 text-sm">Sign In</button>
             </form>
