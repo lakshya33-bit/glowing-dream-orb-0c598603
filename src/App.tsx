@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import NavigationProgress from "@/components/NavigationProgress";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Lazy-loaded pages
 const Index = lazy(() => import("./pages/Index"));
