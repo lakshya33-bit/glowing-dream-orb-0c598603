@@ -4,6 +4,7 @@ import { Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Input } from "@/components/ui/input";
+import SEO from "@/components/SEO";
 import logo from "@/assets/cardperks-logo.png";
 
 export default function Signup() {
