@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Search, Clock, SearchX } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
+import BackToTop from "@/components/BackToTop";
 import ScrollReveal from "@/components/ScrollReveal";
 import FavoriteButton from "@/components/FavoriteButton";
 import { useFavorites } from "@/hooks/use-favorites";
